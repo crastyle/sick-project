@@ -4,5 +4,10 @@ export default {
     return {
       msg: 'Welcome to Imlist'
     }
+  },
+  methods: {
+    chat: function() {
+      this.$router.push('/chat')
+    }
   }
 }

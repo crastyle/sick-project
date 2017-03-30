@@ -23,9 +23,12 @@
         <div class="calendar-card">
             <vue-event-calendar :events="demoEvents"></vue-event-calendar>
         </div>
-        <div class="section-button">
-            <mt-button type="primary" size="large">发消息</mt-button>
-        </div>
+        <router-link to="chat">
+          <div class="section-button">
+                      <mt-button type="primary" size="large">发消息</mt-button>
+                  </div>
+        </router-link>
+
     </div>
 </template>
 

@@ -20,7 +20,7 @@
         <div class="list">
             <div class="list-header">A</div>
             <div class="item-list">
-                <div class="item" @click="cons">
+                <div class="item" @click="sicker">
                     <img src="../../assets/image/demo-avatar.png" alt="">
                     <span class="username">啊的</span>
                 </div>

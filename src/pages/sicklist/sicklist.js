@@ -11,8 +11,8 @@ export default {
     }
   },
   methods: {
-    cons: function() {
-      console.log('1')
+    sicker: function() {
+      this.$router.push('sicker')
     }
   }
 }
