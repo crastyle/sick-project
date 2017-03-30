@@ -37,7 +37,7 @@
             <img src="../../assets/image/code.png" alt="">
         </div>
       <footer>
-        <router-link to="/chat" exact>
+        <router-link to="/imlist" exact>
           <i class="footer_icon"></i>
           <p>对话</p>
         </router-link>
