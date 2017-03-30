@@ -10,3 +10,58 @@ $maincolor: #028BE6;
   -webkit-box-pack: center;
   -webkit-box-align: center;
 }
+
+footer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: absolute;
+  z-index: 500;
+  bottom: 0;
+  width: 100%;
+  background-color: #FDFDFD;
+  height: 1.10rem;
+  border-top: 1px solid #DADADA;
+  a {
+    display: block;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    font-size: 0.24rem;
+    color: #999;
+    text-align: center;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    &.router-link-active {
+      color: #1D8CDC;
+    }
+    i {
+      position: relative;
+      width: 0.54rem;
+      height: 0.54rem;
+      display: block;
+      &.footer_chat_icon {
+        background-size: auto 100%;
+      }
+      &.footer_sick_icon {
+        background-size: auto 100%;
+      }
+      &.footer_mine_icon {
+        background-size: auto 100%;
+      }
+    }
+    p {
+      text-align: center;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+  }
+  a.router-link-active i.footer_chat_icon {
+    background-size: auto 100%;
+  }
+  a.router-link-active i.footer_sick_icon {
+    background-size: auto 100%;
+  }
+  a.router-link-active i.footer_mine_icon {
+    background-size: auto 100%;
+  }
+}

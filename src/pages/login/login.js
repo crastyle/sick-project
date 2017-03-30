@@ -33,6 +33,9 @@ export default {
         clearInterval(timer)
       }
     }, 1000)
+    },
+    login () {
+      this.$router.push('/sicklist')
     }
   }
 }

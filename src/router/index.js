@@ -16,7 +16,6 @@ export default new Router({
     {path: '/',name: 'Hello',component: Hello},
     {path: '/register',name: 'Register',component: Register},
     {path: '/patientCare',name: 'PatientCare',component: PatientCare},
-    {path: '/login',name: 'Login',component: Login}//@register
     {path: '/sicker',name: 'Sicker',component: Sicker},
     {path: '/sicklist',name: 'Sicklist',component: Sicklist},
     {path: '/imlist',name: 'Imlist',component: Imlist},

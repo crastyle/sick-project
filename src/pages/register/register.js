@@ -28,6 +28,9 @@ export default {
     setSex: function(){
       console.log('111')
     },
+    register () {
+      this.$router.push('/login')
+    },
     getCode: function() {
 
       let second = 60

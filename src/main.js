@@ -8,6 +8,8 @@ import './flexble.js'
 // mint-ui
 import 'mint-ui/lib/style.css'
 import "./styles/reset-ui.scss"
+
+import "./styles/app.scss"
 Vue.config.productionTip = false
 
 new Vue({

@@ -24,7 +24,7 @@
       <button class="valid-button" @click="getCode" v-bind:class="{'disabled': buttonStatus}">{{validButtonText}}</button>
     </mt-field>
     <div class="section-button">
-      <mt-button type="primary" size="large">注册</mt-button>
+      <mt-button type="primary" size="large" @click="register">注册</mt-button>
     </div>
 
     <p>
@@ -40,6 +40,4 @@
   @import './register.scss';
 </style>
 
-<script src="./register">
-
-</script>
+<script src="./register"></script>
