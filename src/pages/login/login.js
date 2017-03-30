@@ -25,14 +25,14 @@ export default {
       _this.buttonStatus = true
       this.validButtonText = `${second}重新获取`
       let timer = setInterval(()=>{
-        second --
-        _this.validButtonText = `${second}重新获取`
-        if (second === 0) {
-          _this.buttonStatus = false
-          _this.validButtonText = '获取验证码'
-          clearInterval(timer)
-        }
-      }, 1000)
+          second --
+            _this.validButtonText = `${second}重新获取`
+          if (second === 0) {
+        _this.buttonStatus = false
+        _this.validButtonText = '获取验证码'
+        clearInterval(timer)
+      }
+    }, 1000)
     }
   }
 }

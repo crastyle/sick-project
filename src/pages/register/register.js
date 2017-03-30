@@ -22,7 +22,7 @@ export default {
   }],
     validButtonText: '获取验证码',
       buttonStatus: false
-  }
+    }
   },
   methods: {
     setSex: function(){

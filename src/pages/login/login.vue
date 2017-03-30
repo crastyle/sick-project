@@ -20,7 +20,5 @@
 <style scoped lang="scss">
   @import './login.scss';
 </style>
+<script src="./login"></script>
 
-<script src="./login">
-
-</script>
