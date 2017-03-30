@@ -18,6 +18,20 @@
                 <div class="content unread">[语音]</div>
             </div>
         </div>
+      <footer>
+        <router-link to="/imlist" exact>
+          <i class="footer_icon"></i>
+          <p>对话</p>
+        </router-link>
+        <router-link to="/sicklist" exact>
+          <i class="footer_icon"></i>
+          <p>患者</p>
+        </router-link>
+        <router-link to="/userinfo" exact>
+          <i class="footer_icon"></i>
+          <p>我的</p>
+        </router-link>
+      </footer>
     </div>
 </template>
 
@@ -26,5 +40,5 @@
 </style>
 
 <script src="./imlist">
-    
+
 </script>

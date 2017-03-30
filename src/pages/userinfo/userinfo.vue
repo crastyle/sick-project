@@ -36,6 +36,20 @@
             <div class="tip">我的二维码</div>
             <img src="../../assets/image/code.png" alt="">
         </div>
+      <footer>
+        <router-link to="/chat" exact>
+          <i class="footer_icon"></i>
+          <p>对话</p>
+        </router-link>
+        <router-link to="/sicklist" exact>
+          <i class="footer_icon"></i>
+          <p>患者</p>
+        </router-link>
+        <router-link to="/userinfo" exact>
+          <i class="footer_icon"></i>
+          <p>我的</p>
+        </router-link>
+      </footer>
     </div>
 </template>
 
@@ -44,5 +58,5 @@
 </style>
 
 <script src="./userinfo">
-    
+
 </script>

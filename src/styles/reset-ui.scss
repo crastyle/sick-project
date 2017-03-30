@@ -92,7 +92,7 @@ $maincolor: #028BE6;
     }
 }
 .__vev_calendar-wrapper .cal-wrapper .cal-body .dates .item.event {
-    
+
     .date-num {
         color: #fff !important;
     }
@@ -168,4 +168,10 @@ $maincolor: #028BE6;
     height: .8rem;
     box-sizing: border-box;
     background: #eee;
+}
+.patientCarePage .mint-cell-wrapper {
+  background-image: none;
+}
+.patientCarePage .mint-cell:last-child {
+  background-image: none;
 }

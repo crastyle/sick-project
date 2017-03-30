@@ -34,5 +34,5 @@
 </style>
 
 <script src="./sicker">
-    
+
 </script>
