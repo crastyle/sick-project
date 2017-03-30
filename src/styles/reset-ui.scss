@@ -1,0 +1,130 @@
+@import 'app';
+.mint-field .mint-cell-title {
+    text-align: left;
+    width: 80px;
+    padding-left: .36rem;
+}
+
+.mint-field-other {
+    height: 100%;
+}
+
+.mint-button--primary {
+    background-color: #028BE6;
+}
+.form-label {
+    .sex-value {
+        color: #757575;
+    }
+}
+
+.single-radio {
+    .mint-radiolist {
+        display: -webkit-flex;
+    }
+    .mint-radiolist-title {
+        display: none;
+    }
+    .mint-radiolist .mint-cell {
+        @include vertical();
+        height: 1.2rem;
+        margin-right: 20px;
+        .mint-cell-wrapper {
+            background: none;
+            padding: 0;
+        }
+        &:last-child {
+            background: none;
+        }
+        .mint-radiolist-label {
+            padding: 0;
+        }
+    }
+}
+
+.checklist {
+    .mint-checklist-title {
+        display: none;
+    }
+    .mint-cell-wrapper {
+        background: none;
+        padding: 0;
+    }
+    .mint-checkbox-label {
+        color: #787878;
+        font-size: 16px;
+    }
+    .mint-checklist-label {
+        padding: 0;
+    }
+    .mint-checklist {
+        margin-top: 10px;
+    }
+}
+
+.cal-header {
+    .title {
+        font-size: 20px;
+        color: #787878;
+    }
+}
+.__vev_calendar-wrapper .cal-wrapper .cal-body .weeks {
+    font-size: .32rem;
+    color: #999;
+}
+.__vev_calendar-wrapper .cal-wrapper .cal-body .dates .item .date-num {
+    font-size: .32rem;
+    color: #333;
+}
+.__vev_calendar-wrapper .cal-wrapper .cal-body .dates .item.today {
+    color: #333;
+    .is-today {
+        display: none;
+    }
+}
+.doctor_dialog .mint-cell-wrapper {
+  background-image: none;
+  font-size: .4rem;
+}
+.doctor_dialog .mint-cell:last-child {
+  background-image: none;
+}
+.doctor_dialog .mint-radio-input:checked + .mint-radio-core::after {
+  border-color: #fff;
+  -webkit-transform: rotate(45deg) scale(1);
+  transform: rotate(45deg) scale(1);
+  background-color: transparent;
+}
+.doctor_dialog .mint-radio-input:checked + .mint-radio-core {
+  background-color: #028BE6;
+  border-color: #028BE6;
+}
+.doctor_dialog .mint-radio-core::after {
+  border: 2px solid transparent;
+  border-radius: 0;
+  border-left: 0;
+  border-top: 0;
+  content: " ";
+  top: 3px;
+  left: 6px;
+  position: absolute;
+  width: 4px;
+  height: 8px;
+  -webkit-transform: rotate(45deg) scale(0);
+  transform: rotate(45deg) scale(0);
+  -webkit-transition: -webkit-transform .2s;
+  transition: -webkit-transform .2s;
+  transition: transform .2s;
+  transition: transform .2s,-webkit-transform .2s;
+}
+.doctor_dialog .mint-radiolist {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.doctor_dialog .mint-cell {
+  display: block;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
