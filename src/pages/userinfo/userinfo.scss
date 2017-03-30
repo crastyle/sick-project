@@ -1,0 +1,60 @@
+.userinfoPage {
+    .item-list {
+        padding-left: .3rem;
+        background: #fff;
+        .item {
+            border-bottom: 1px solid #D9D9D9;
+            height: .86rem;
+            line-height: .86rem;
+            padding: .3rem;
+            padding-left: 0;
+            box-sizing: initial;
+            .bd-l {
+                float: left;
+                font-size: 20px;
+                color: #787878;
+                width: 2rem;
+            }
+            img {
+                width: .86rem;
+                height: .86rem;
+                display: block;
+                float: right;
+            }
+            .username {
+                font-size: 20px;
+                color: #333333;
+                display: block;
+                position: relative;
+                &.link:after {
+                    content: '';
+                    width: .19rem;
+                    height: .34rem;
+                    position: absolute;
+                    background: url(../../assets/image/icon-arrow-right-gray.png) no-repeat;
+                    background-size: 100%;
+                    display: block;
+                    right: 0;
+                    top: 50%; 
+                    margin-top: -.17rem;
+                }
+            }
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+    .my-section {
+        text-align: center;
+        margin: .63rem 0;
+        font-size: 20px;
+        color: #787878;
+
+        img {
+            width: 2.6rem;
+            height: 2.6rem;
+            display: inline-block;
+            margin-top: .3rem;
+        }
+    }
+}

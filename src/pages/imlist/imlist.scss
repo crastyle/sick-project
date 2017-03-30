@@ -1,0 +1,54 @@
+@import '../../styles/app';
+.imlistPage {
+    .item-list {
+        padding-left: .3rem;
+        background: #fff;
+        .item {
+            border-bottom: 1px solid #D9D9D9;
+            height: 1.1rem;
+            padding: .3rem;
+            padding-left: 0;
+            box-sizing: initial;
+            position: relative;
+            .timer {
+                position: absolute;
+                right: .2rem;
+                top: .3rem;
+                color: #999;
+                font-size: 13px;
+            }
+            img {
+                width: 1.1rem;
+                height: 1.1rem;
+                margin-right: .3rem;
+                display: block;
+                float: left;
+            }
+            .username {
+                font-size: 20px;
+                color: #333333;
+                display: block;
+            }
+            .content {
+                font-size: 16px;
+                color: #999;
+                @include ellipsis();
+                position: relative;
+                &.unread:after {
+                    content: '';
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    border-radius: 50%;
+                    width: 5px;
+                    height: 5px;
+                    background: #f00;
+                }
+            }
+            &:last-child {
+                border: none;
+            }
+        }
+    }
+}

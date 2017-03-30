@@ -1,0 +1,43 @@
+@import "../../styles/app";
+.sicklistPage {
+    .search-bar {
+        height: 1.2rem;
+        overflow: hidden;
+    }
+    .list {
+        background: #fff;
+        .list-header {
+            background: #F2F2F2;
+            height: .5rem;
+            padding-left: .3rem;
+            font-size: 16px;
+            color: #787878;
+        }
+        .item-list {
+            padding-left: .3rem;
+            .item {
+                border-bottom: 1px solid #D9D9D9;
+                height: .86rem;
+                line-height: .86rem;
+                padding: .3rem ;
+                padding-left: 0;
+                box-sizing: initial;
+                img {
+                    width: .86rem;
+                    height: .86rem;
+                    margin-right: .3rem;
+                    display: block; 
+                    float: left;
+                }
+                .username {
+                    font-size: 20px;
+                    color: #333333;
+                    display: block;
+                }
+                &:last-child {
+                    border: none;
+                }
+            }
+        }
+    }
+}

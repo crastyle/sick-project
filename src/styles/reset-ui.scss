@@ -1,16 +1,25 @@
 @import 'app';
+$maincolor: #028BE6;
 .mint-field .mint-cell-title {
     text-align: left;
     width: 80px;
     padding-left: .36rem;
+
 }
 
 .mint-field-other {
     height: 100%;
 }
-
+.mint-header {
+    background: $maincolor;
+    height: 44px;
+    .mint-header-title {
+        font-weight: bold;
+        font-size: 18px;
+    }
+}
 .mint-button--primary {
-    background-color: #028BE6;
+    background-color: $maincolor;
 }
 .form-label {
     .sex-value {
@@ -82,6 +91,18 @@
         display: none;
     }
 }
+.__vev_calendar-wrapper .cal-wrapper .cal-body .dates .item.event {
+    
+    .date-num {
+        color: #fff !important;
+    }
+    .is-event {
+        background: $maincolor;
+    }
+}
+.events-wrapper {
+    display: none;
+}
 .doctor_dialog .mint-cell-wrapper {
   background-image: none;
   font-size: .4rem;
@@ -96,8 +117,8 @@
   background-color: transparent;
 }
 .doctor_dialog .mint-radio-input:checked + .mint-radio-core {
-  background-color: #028BE6;
-  border-color: #028BE6;
+  background-color: $maincolor;
+  border-color: $maincolor;
 }
 .doctor_dialog .mint-radio-core::after {
   border: 2px solid transparent;
@@ -127,4 +148,24 @@
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;
+}
+.mint-searchbar-inner .mintui-search {
+    color: #787878;
+    font-size: 16px;
+    margin-right: 5px;
+}
+.mint-searchbar {
+    padding: .2rem .3rem;
+    background: #fff;
+}
+.mint-searchbar-core {
+    font-size: 16px;
+}
+.mint-searchbar-cancel {
+    font-size: 16px;
+}
+.mint-searchbar-inner {
+    height: .8rem;
+    box-sizing: border-box;
+    background: #eee;
 }

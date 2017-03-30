@@ -1,0 +1,40 @@
+.sickerPage {
+    .sicker-info {
+        background: #fff;
+        padding: .3rem;
+        overflow: hidden;
+        line-height: normal;
+        .avatar {
+            float: left;
+            img {
+                width: 1.5rem;
+                height: 1.5rem;
+                border-radius: 50%;
+            }
+        }
+        .info {
+            margin-left: 1.76rem;
+            .name {
+                font-size: 20px;
+                color: #333333;
+                margin-bottom: 5px;
+            }
+            .sexage {
+                font-size: 16px;
+                color: #999999;
+                margin-bottom: 5px;
+            }
+            .leavedate {
+                font-size: 16px;
+                color: #999999;
+            }
+        }
+    }
+    .calendar-card {
+        background: #fff;
+        margin-top: .3rem;
+    }
+    .section-button {
+        margin-top: .7rem;
+    }
+}
