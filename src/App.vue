@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <footer>
+    <footer v-show="$route.meta.menuShow">
       <router-link to="/imlist" exact>
         <i class="footer_icon"></i>
         <p>对话</p>

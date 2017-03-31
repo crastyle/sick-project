@@ -18,10 +18,10 @@ export default new Router({
     {path: '/register',name: 'Register',component: Register},
     {path: '/patientCare',name: 'PatientCare',component: PatientCare},
     {path: '/sicker',name: 'Sicker',component: Sicker},
-    {path: '/sicklist',name: 'Sicklist',component: Sicklist},
-    {path: '/imlist',name: 'Imlist',component: Imlist},
+    {path: '/sicklist',name: 'Sicklist',component: Sicklist,meta: { menuShow: true}},
+    {path: '/imlist',name: 'Imlist',component: Imlist,meta: { menuShow: true}},
     {path: '/chat',name: 'chat',component: Chat},
-        {path: '/userinfo',name: 'Userinfo',component: Userinfo},
+    {path: '/userinfo',name: 'Userinfo',component: Userinfo,meta: { menuShow: true}},
     {path: '/login',name: 'Login',component: Login}//@register
 
   ]
