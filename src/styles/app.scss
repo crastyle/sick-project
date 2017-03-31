@@ -40,15 +40,15 @@ footer {
       height: 0.54rem;
       display: block;
       &.footer_chat_icon {
-        background: url("../assets/image/icon_chat_normal.png") no-repeat center center;
+        background: url("../../assets/image/icon_chat_normal.png") no-repeat center center;
         background-size: auto 100%;
       }
       &.footer_sick_icon {
-        background: url("../assets/image/icon_ patient_normal.png") no-repeat center center;
+        background: url("../../assets/image/icon_ patient_normal.png") no-repeat center center;
         background-size: auto 100%;
       }
       &.footer_mine_icon {
-        background: url("../assets/image/icon_mine_normal.png") no-repeat center center;
+        background: url("../../assets/image/icon_mine_normal.png") no-repeat center center;
         background-size: auto 100%;
       }
     }
@@ -59,15 +59,15 @@ footer {
     }
   }
   a.router-link-active i.footer_chat_icon {
-    background: url("../assets/image/icon_chat_selected.png") no-repeat center center;
+    background: url("../../assets/image/icon_chat_selected.png") no-repeat center center;
     background-size: auto 100%;
   }
   a.router-link-active i.footer_sick_icon {
-    background: url("../assets/image/icon_ patient_selected.png") no-repeat center center;
+    background: url("../../assets/image/icon_ patient_selected.png") no-repeat center center;
     background-size: auto 100%;
   }
   a.router-link-active i.footer_mine_icon {
-    background: url("../assets/image/icon_mine_selected.png") no-repeat center center;
+    background: url("../../assets/image/icon_mine_selected.png") no-repeat center center;
     background-size: auto 100%;
   }
 }
