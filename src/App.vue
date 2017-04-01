@@ -3,15 +3,15 @@
     <router-view></router-view>
     <footer v-show="$route.meta.menuShow">
       <router-link to="/imlist" exact>
-        <i class="footer_icon"></i>
+        <i class="footer_chat_icon"></i>
         <p>对话</p>
       </router-link>
       <router-link to="/sicklist" exact>
-        <i class="footer_icon"></i>
+        <i class="footer_sick_icon"></i>
         <p>患者</p>
       </router-link>
       <router-link to="/userinfo" exact>
-        <i class="footer_icon"></i>
+        <i class="footer_mine_icon"></i>
         <p>我的</p>
       </router-link>
     </footer>
