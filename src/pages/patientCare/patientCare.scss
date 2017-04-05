@@ -5,13 +5,13 @@
   background: #fff;
   h2 {
     font-size: .6rem;
-    padding: .7rem 0 0;
+    padding: 1.5rem 0 0;
     color: #1D8CDC;
     text-align: center;
   }
   p {
     color: #999;
-    padding-bottom:.4rem;
+    padding-bottom:.8rem;
     text-align: center;
   }
   .content {
@@ -23,4 +23,7 @@
       width: 80%;
     }
   }
+}
+.page-swipe {
+  height: 6rem;
 }
