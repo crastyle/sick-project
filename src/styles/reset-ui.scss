@@ -100,6 +100,9 @@ $maincolor: #028BE6;
         background: $maincolor;
     }
 }
+.mint-cell-title {
+    text-align: left;
+}
 .events-wrapper {
     display: none;
 }
@@ -148,6 +151,9 @@ $maincolor: #028BE6;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;
+}
+.mint-search {
+    height: 1.2rem;
 }
 .mint-searchbar-inner .mintui-search {
     color: #787878;

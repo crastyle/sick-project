@@ -8,13 +8,19 @@ import './flexble.js'
 // mint-ui
 import 'mint-ui/lib/style.css'
 import "./styles/reset-ui.scss"
-
+import resource from './resource'
+import base from './base'
 import "./styles/app.scss"
 Vue.config.productionTip = false
-
+resource.interceports()
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  mounted() {
+    if(this.$route.name != 'Login') {
+      base.getopenId()
+    }
+  }
 })
