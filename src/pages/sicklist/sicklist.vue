@@ -10,60 +10,47 @@
             <div class="mint-searchbar">
                 <div class="mint-searchbar-inner">
                     <i class="mintui mintui-search"></i>
-                    <input type="search" placeholder="搜索" class="mint-searchbar-core">
+                    <input type="search" placeholder="搜索" @input="search" v-model="namePrefix" class="mint-searchbar-core">
                 </div>
                 <a class="mint-searchbar-cancel" style="display: none;">取消</a>
             </div>
         </div>
-
-
-        <div class="list">
-            <div class="list-header">A</div>
-            <div class="item-list">
-                <div class="item" @click="sicker">
-                    <img src="../../assets/image/demo-avatar.png" alt="">
-                    <span class="username">啊的</span>
-                </div>
-                <div class="item">
-                    <img src="../../assets/image/demo-avatar.png" alt="">
-                    <span class="username">安跑</span>
-                </div>
-                <div class="item">
-                    <img src="../../assets/image/demo-avatar.png" alt="">
-                    <span class="username">安徽</span>
+        <div class="list" v-if="!isSearch" v-infinite-scroll="paginationData" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+            <div class="crumb" v-for="item in localData">
+                <div class="list-header">{{item.item}}</div>
+                <div class="item-list" v-for="key in item.list" @click="patientCalendar(key.patientUserGid)">
+                    <div class="item" >
+                        <img :src="key.headImg" alt="">
+                        <span class="username">{{key.name}}</span>
+                    </div>
                 </div>
             </div>
-            <div class="list-header">B</div>
-            <div class="item-list">
-                <div class="item">
-                    <img src="../../assets/image/demo-avatar.png" alt="">
-                    <span class="username">北京患者</span>
-                </div>
-                <div class="item">
-                    <img src="../../assets/image/demo-avatar.png" alt="">
-                    <span class="username">比利</span>
-                </div>
-                <div class="item">
-                    <img src="../../assets/image/demo-avatar.png" alt="">
-                    <span class="username">比例减</span>
-                </div>
-            </div>
-
         </div>
-      <footer>
-        <router-link to="/imlist" exact>
-          <i class="footer_icon"></i>
-          <p>对话</p>
-        </router-link>
-        <router-link to="/sicklist" exact>
-          <i class="footer_icon"></i>
-          <p>患者</p>
-        </router-link>
-        <router-link to="/userinfo" exact>
-          <i class="footer_icon"></i>
-          <p>我的</p>
-        </router-link>
-      </footer>
+        <div class="list" v-if="isSearch" v-infinite-scroll="paginationSearch" infinite-scroll-disabled="searchLoad" infinite-scroll-distance="10">
+            <div class="crumb" v-for="item in searchLocalData">
+                <div class="list-header">{{item.item}}</div>
+                <div class="item-list" v-for="key in item.list" @click="patientCalendar(key.patientUserGid)">
+                    <div class="item" >
+                        <img :src="key.headImg" alt="">
+                        <span class="username">{{key.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <router-link to="/imlist" exact>
+                <i class="footer_icon"></i>
+                <p>对话</p>
+            </router-link>
+            <router-link to="/sicklist" exact>
+                <i class="footer_icon"></i>
+                <p>患者</p>
+            </router-link>
+            <router-link to="/userinfo" exact>
+                <i class="footer_icon"></i>
+                <p>我的</p>
+            </router-link>
+        </footer>
     </div>
 </template>
 
@@ -72,5 +59,5 @@
 </style>
 
 <script src="./sicklist">
-
+    
 </script>

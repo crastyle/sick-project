@@ -187,7 +187,7 @@ export default {
           window.localStorage.setItem('u_token', res.body.result.t)
           setTimeout(() => {
 
-            _this.$router.replace('bindid')
+            _this.$router.replace('imlist')
           }, 2000)
         }
       })

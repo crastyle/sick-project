@@ -76,5 +76,86 @@ export default {
         month = month < 10 ? '0' + month : month
         day = day < 10 ? '0' + day : day
         return `${year}年${month}月${day}日`
+    },
+    groupBy(db, limit, type) {
+        /**
+         * 数据库分组方法
+         * groupBy(['platform','money'], 'asc')
+         * @param  {Array} limit 按照第一个规则分组，按照第二、三、四...个条件排序
+         * @param  {string} type {asc||desc} 正序和降序
+         * @param  {Object} db 外部的数据集合，默认为数据库
+         * @return {Object} result 返回排序之后的数据库
+         */
+        var result = [];
+        var orderLimit = limit[0];
+        limit.shift();
+        var orderByLimit = limit.length ? limit : [orderLimit];
+
+        var db = db || this.db;
+        result = result.concat(this.orderBy(db, orderByLimit, type));
+
+        var map = {};
+
+        for (var i = 0; i < result.length; i++) {
+            if (map[result[i][orderLimit]] === undefined) {
+                map[result[i][orderLimit]] = [];
+            }
+            map[result[i][orderLimit]].push(result[i]);
+        }
+
+        var _map = [];
+
+        for (let item in map) {
+            let _list = {};
+            _list.item = item;
+            _list.list = map[item];
+            _map.push(_list);
+        }
+        return _map;
+
+    },
+    orderBy(db, limit, type) {
+        /**
+         * 数据库排序方法
+         * orderBy(['time','money'], 'asc')
+         * @param  {Array} limit 按照什么规则排序 例：['time','money'] 优先级为time，money
+         * @param  {string} type {'asc'||'desc'} 正序和降序
+         * @param  {Object} db 外部的数据集合，默认为内部数据库
+         * @return {Object} result 返回排序之后的数据库
+         */
+        var that = this;
+        var limit = limit.reverse();
+        var result = [];
+        var record = [];
+
+        function order(limit, type, db) {
+            var db = db || that.db;
+
+            db.sort(function (a, b) {
+                if (type == 'asc') {
+                    if (typeof a[limit[0]] == 'string' && typeof b[limit[0]] == 'string') {
+                        return a[limit[0]].localeCompare(b[limit[0]]);
+                    } else {
+                        return a[limit[0]] - b[limit[0]];
+                    }
+                } else {
+                    if (typeof a[limit[0]] == 'string' && typeof b[limit[0]] == 'string') {
+                        return b[limit[0]].localeCompare(a[limit[0]]);
+                    } else {
+                        return b[limit[0]] - a[limit[0]];
+                    }
+                }
+            });
+
+            limit.shift();
+
+            if (limit.length)
+                order(limit, type, db);
+            else
+                result = result.concat(db);
+
+        }
+        order(limit, type, db)
+        return result
     }
 }

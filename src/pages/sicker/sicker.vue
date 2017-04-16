@@ -1,9 +1,6 @@
 <template>
     <div class="sickerPage">
         <mt-header title="宋宝强先生日历">
-            <router-link to="/" slot="left">
-                <mt-button icon="back"></mt-button>
-            </router-link>
             <mt-button slot="right">删除</mt-button>
         </mt-header>
         <div class="sicker-info">

@@ -17,10 +17,11 @@ export default {
                 req.body['t'] = t
                 req.body['c'] = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 ? 'wechat' : ''
 
-                // req.body['u'] = '156e6fe21f5f45dbb1198d1bc3223cd6'
-                // req.body['t'] = 'oipgNwtZu3Pzr9seSLMtKH7EJ2mg'
-                // req.body['c'] = 'wechat'
+
             }
+            // req.body['u'] = '7e78d0d0d17146cc86309555de96f473'
+            // req.body['t'] = 'o0jil0lonO36KdXenAADTq8-zerc'
+            // req.body['c'] = 'wechat'
             let toast = Toast({
                 message: '请求中...'
             })
@@ -118,7 +119,7 @@ export default {
     bindPatientList(params) {
         return this.resource('doctor/myPatient/bindPatientList', params)
     },
-    bindPatientInfo (params){
+    bindPatientInfo(params) {
         return this.resource('doctor/myPatient/bindPatientInfo', params)
     },
     patientMonthDiary(params) {
@@ -139,8 +140,8 @@ export default {
         return this.resource('utility/uploadImageWithCrop', formData)
     },
 
-    userInfo() {
-        return this.resource('doctor/user/userInfo')
+    userInfo(params) {
+        return this.resource('doctor/user/userInfo', params)
     },
     updateUserInfo(params) {
         return this.resource('doctor/user/updateUserSelective', params)
