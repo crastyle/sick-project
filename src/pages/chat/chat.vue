@@ -1,6 +1,5 @@
 <template>
   <div class="chatPage">
-    <header>张医生</header>
 
     <div class="chat_body clearfix">
       <!-- 左边 文字 -->
