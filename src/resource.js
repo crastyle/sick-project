@@ -145,5 +145,12 @@ export default {
     },
     updateUserInfo(params) {
         return this.resource('doctor/user/updateUserSelective', params)
+    },
+    rongyunAppKey() {
+        return this.resource('rongyun/gateway/rongyunAppKey')
+    },
+    newtoken(params) {
+        params.app = 'doctor'
+        return this.resource('rongyun/gateway/doctor/newToken', params)
     }
 }

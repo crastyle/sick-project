@@ -13,7 +13,7 @@
             <div class="info">
                 <div class="name">{{bindPatientInfo.name}}</div>
                 <div class="sexage">
-                    <span>{{bindPatientInfo.sex}}</span><span>{{bindPatientInfo.age}}</span>
+                    <span>{{bindPatientInfo.sex == 1 ? '男': '女'}}</span> <span>{{bindPatientInfo.age}}</span>
                 </div>
                 <div class="leavedate">
                     出院日期：{{bindPatientInfo.leaveTime}}
@@ -25,7 +25,7 @@
         </div>
 
         <div class="section-button">
-            <mt-button type="primary" size="large" @click="sendInfo()">发消息</mt-button>
+            <mt-button type="primary" size="large" @click="sendInfo">发消息</mt-button>
         </div>
 
     </div>

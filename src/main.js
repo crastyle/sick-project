@@ -12,6 +12,7 @@ import resource from './resource'
 import base from './base'
 import "./styles/app.scss"
 Vue.config.productionTip = false
+
 resource.interceports()
 new Vue({
   el: '#app',
@@ -19,8 +20,9 @@ new Vue({
   template: '<App/>',
   components: { App },
   mounted() {
-    if(this.$route.name != 'Login') {
+    if (this.$route.name != 'Login') {
       base.getopenId()
     }
   }
+  
 })
