@@ -28,6 +28,50 @@ new Vue({
         base.initIm(res.body.result.appKey)
       }
     })
+  },
+  created() {
+    let _this = this
+    let userid = '7e78d0d0d17146cc86309555de96f473'
+    resource.newtoken({ userGid: userid }).then(res => {
+      console.log("asd")
+      if (res.body.code == 0) {
+        base.watchIM()
+        _this.receiveMsg()
+        base.connectIM(res.body.result.token)
+      }
+    })
+  },
+  methods: {
+    receiveMsg() {
+      // 消息监听器
+      RongIMClient.setOnReceiveMessageListener({
+        // 接收到的消息
+        onReceived: function (message) {
+          // 判断消息类型
+          console.log(message)
+          switch (message.messageType) {
+            case RongIMClient.MessageType.TextMessage:
+              // 发送的消息内容将会被打印
+              console.log(message.content.content);
+              break;
+            case RongIMClient.MessageType.VoiceMessage:
+              // 对声音进行预加载                
+              // message.content.content 格式为 AMR 格式的 base64 码
+              RongIMLib.RongIMVoice.preLoaded(message.content.content);
+              break;
+            case RongIMClient.MessageType.ImageMessage:
+              // do something...
+              break;
+            case RongIMClient.MessageType.UnknownMessage:
+              // do something...
+              break;
+            default:
+            // 自定义消息
+            // do something...
+          }
+        }
+      })
+    }
   }
-  
+
 })
