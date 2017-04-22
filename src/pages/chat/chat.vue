@@ -97,13 +97,16 @@
       </div>
       <div class="chat_footer chat_footer_center">
         <!-- 输入框状态 -->
-        <textarea name="" id=""></textarea>
+        <textarea name="" id="" v-model="chatContent"></textarea>
         <!-- 语音状态-->
         <input type="button" value="按住说话" name="press">
       </div>
-      <div class="chat_footer">
+      <div class="chat_footer" @click="sendMsg">
+        发送
+      <!-- 
         <input type="file" name="file">
         <input type="button" name="button" class="chat_image">
+        -->
       </div>
     </div>
   </div>

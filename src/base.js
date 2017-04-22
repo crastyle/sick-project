@@ -189,10 +189,11 @@ export default {
             }
         });
     },
-    connectIM(token) {
+    connectIM(token, cb) {
         RongIMClient.connect(token, {
             onSuccess: function (userId) {
                 console.log("Login successfully." + userId);
+                cb()
             },
             onTokenIncorrect: function () {
                 console.log('token无效');
@@ -301,5 +302,16 @@ export default {
                 // 错误处理...
             }
         });
+    },
+     formatEventDate(time) {
+        let date = new Date(time)
+        let year = date.getFullYear()
+        let month = date.getMonth() + 1
+        let day = date.getDate()
+        month = month < 10 ? '0' + month : month
+        day = day < 10 ? '0' + day : day
+
+        return `${year}/${month}/${day}`
     }
+   
 }

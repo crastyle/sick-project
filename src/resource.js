@@ -6,7 +6,6 @@ export default {
     interceports() {
         Vue.http.interceptors.push((req, next) => {
             req.method = "POST"
-            console.log(req)
             let u = window.localStorage.getItem('u_uid')
             let t = window.localStorage.getItem('u_token')
             if (!u || u !== "undefined") {
@@ -16,8 +15,6 @@ export default {
                 // req.body['u'] = u
                 // req.body['t'] = t
                 // req.body['c'] = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 ? 'wechat' : ''
-
-
             }
             req.body['u'] = '7e78d0d0d17146cc86309555de96f473'
             req.body['t'] = 'o0jil0lonO36KdXenAADTq8-zerc'

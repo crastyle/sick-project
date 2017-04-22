@@ -4,7 +4,7 @@
           <router-link to="/sicklist" slot="left">
             <mt-button icon="back"></mt-button>
           </router-link>
-          <mt-button slot="right" @click="deleteItem()">删除</mt-button>
+          <mt-button slot="right" @click="deleteItem">删除</mt-button>
         </mt-header>
         <div class="sicker-info">
             <div class="avatar">
@@ -20,8 +20,22 @@
                 </div>
             </div>
         </div>
-        <div class="calendar-card">
-            <vue-event-calendar :events="demoEvents"></vue-event-calendar>
+        <div class="medicine-card" v-bind:class="{'transition-hide': isTake}" @click="backMonthDiary" v-if="!checkInStatus">
+            <div class="timer">
+                {{remindTime}} <i class="icon-love"></i>
+            </div>
+            <div class="medicine-list">
+                <div class="label" >
+                    当日所用药物
+                </div>
+                <div class="values checklist">
+                    <mt-checklist :value="defaultChecklist" v-model="medicineList" :options="checklistOpt"></mt-checklist>
+                </div>
+            </div>
+        
+        </div>
+        <div class="calendar-card" v-show="checkInStatus" v-bind:class="{'transition-hide': !calendarTransform}">
+            <vue-event-calendar :events="demoEvents" @click-day="clickDay" @change-month="changeMonth"></vue-event-calendar>
         </div>
 
         <div class="section-button">

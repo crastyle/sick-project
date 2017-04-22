@@ -23,6 +23,11 @@ new Vue({
     if (this.$route.name != 'Login') {
       base.getopenId()
     }
+    resource.rongyunAppKey().then(res => {
+      if (res.body.code == 0) {
+        base.initIm(res.body.result.appKey)
+      }
+    })
   }
   
 })
