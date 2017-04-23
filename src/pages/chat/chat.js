@@ -1,5 +1,6 @@
 import resource from '../../resource'
 import base from '../../base'
+import { bus } from '../../bus'
 export default {
   name: 'Chat',
   data() {
@@ -8,7 +9,8 @@ export default {
       bindPatientInfo: {},
       userInfo: {},
       chatContent: '',
-      contentList: []
+      contentList: [],
+      msgType: true
     }
   },
   mounted() {
@@ -17,35 +19,53 @@ export default {
     resource.bindPatientInfo({ patientUserGid: this.id }).then(res => {
       if (res.body.code == 0) {
         _this.bindPatientInfo = res.body.result
+        _this.getHistoryRecord()
+        bus.$on('receiveMsg', function (message) {
+          if (message.senderUserId === _this.$route.query.id) {
+            _this.contentList.push({
+              content: message.content.content,
+              type: 0,
+              headImg: _this.bindPatientInfo.headImg
+            })
+          }
+        })
       }
     })
     resource.userInfo().then(res => {
       if (res.body.code == 0) {
         _this.userInfo = res.body.result
+
       }
     })
-    resource.newtoken({ userGid: '7e78d0d0d17146cc86309555de96f473' }).then(res => {
-      console.log(res)
-      RongIMClient.getInstance().hasRemoteUnreadMessages(res.body.result.token, {
-        onSuccess: function (hasMessage) {
-          console.log(hasMessage)
-          if (hasMessage) {
-            // 有未读的消息
-          } else {
-            // 没有未读的消息
-          }
-        }, onError: function (err) {
-          // 错误处理...
-        }
-      });
-    })
+  },
+  watch: {
+    'contentList': function () {
+      setTimeout(function () {
+        document.getElementById('content').scrollTop = document.getElementById('content').scrollHeight;
+      }, 100)
+    }
   },
   methods: {
     getHistoryRecord() {
+      let _this = this
       //getHistoryMessages
       RongIMClient.getInstance().getHistoryMessages(RongIMLib.ConversationType.PRIVATE, this.$route.query.id, null, 20, {
         onSuccess: function (list, hasMsg) {
-          console.log(list, 'list')
+          for (let i = 0; i < list.length; i++) {
+            if (list[i]['senderUserId'] === _this.$route.query.id) {
+              _this.contentList.push({
+                content: list[i].content.content,
+                type: 0,
+                headImg: _this.bindPatientInfo.headImg
+              })
+            } else if (list[i]['senderUserId'] === '156e6fe21f5f45dbb1198d1bc3223cd6') {
+              _this.contentList.push({
+                content: list[i].content.content,
+                type: 1,
+                headImg: _this.userInfo.headImg
+              })
+            }
+          }
           // hasMsg为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
           // list 为拉取到的历史消息列表
         },
@@ -55,41 +75,8 @@ export default {
         }
       });
     },
-    onReceiveMessage() {
-      let _this = this;
-      // 消息监听器
-      RongIMClient.setOnReceiveMessageListener({
-        // 接收到的消息
-        onReceived: function (message) {
-          console.log(message)
-          // 判断消息类型
-          switch (message.messageType) {
-            case RongIMClient.MessageType.TextMessage:
-              _this.contentList.push({
-                headImg: _this.bindPatientInfo.headImg,
-                content: message.content.content,
-                type: 0
-              })
-
-              console.log(message.content.content);
-              break;
-            case RongIMClient.MessageType.VoiceMessage:
-              // 对声音进行预加载                
-              // message.content.content 格式为 AMR 格式的 base64 码
-              RongIMLib.RongIMVoice.preLoaded(message.content.content);
-              break;
-            case RongIMClient.MessageType.ImageMessage:
-              // do something...
-              break;
-            case RongIMClient.MessageType.UnknownMessage:
-              // do something...
-              break;
-            default:
-            // 自定义消息
-            // do something...
-          }
-        }
-      });
+    changeStatus() {
+      this.msgType = !this.msgType
     },
     sendMsg() {
       let _this = this
@@ -103,13 +90,13 @@ export default {
         // 发送消息成功
         onSuccess: function (message) {
           //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
-          console.log("Send successfully");
           _this.contentList.push({
             content: _this.chatContent,
             headImg: _this.userInfo.headImg,
             type: '1'
           })
           _this.chatContent = ''
+          console.log('消息发送成功')
         },
         onError: function (errorCode, message) {
           var info = '';
