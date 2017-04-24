@@ -30,6 +30,7 @@
       </div>
       <div class="mint-cell-right"></div>
     </a>
+    
     <mt-field label="手机号" placeholder="输入手机号" type="tel" v-model="userInfo.mobile"></mt-field>
     <mt-field label="验证码" placeholder="输入验证码" v-model="userInfo.smsCode">
       <button class="valid-button" @click="getCode" v-bind:class="{'disabled': buttonStatus}">{{validButtonText}}</button>

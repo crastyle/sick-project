@@ -36,7 +36,7 @@
         
         methods: {
             hidePanel() {
-                this.visible = false
+                this.$parent.visible = false
             },
             choseItem(e) {
                 if (this.type === 'department') {
@@ -49,7 +49,7 @@
             },
             search(e) {
                 let val = e.target.value
-                this.data = this.data.filter((item) => {
+                this.$parent.data = this.$parent.data.filter((item) => {
                     return (item['name'].toLowerCase().indexOf(val.toLowerCase()) > -1)
                 })
             }

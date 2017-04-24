@@ -44,7 +44,7 @@ export default {
                     code: code
                 }).then(res => {
                     let openId = res.body.result.openId
-                    window.localStorage.setItem('openId', openId)
+                    window.localStorage.setItem('openid', openId)
                 })
             }
         }

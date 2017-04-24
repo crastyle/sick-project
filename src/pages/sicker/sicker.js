@@ -51,6 +51,7 @@ export default {
     let _this = this
     this.id = this.$route.query.id
     resource.bindPatientInfo({ patientUserGid: this.id }).then(res => {
+      console.log(res)
       if (res.body.code == 0) {
         _this.bindPatientInfo = res.body.result
         _this.bindPatientInfo.leaveTime = base.formatDate2(res.body.result.leaveTime * 1000)

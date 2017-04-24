@@ -44,7 +44,7 @@ export default {
   mounted() {
     if(!localStorage.getItem('answerList')) this.$router.replace('patientCare')
     this.userInfo.answerList = localStorage.getItem('answerList').split('|')
-    let ls_openId = window.localStorage.getItem('openId')
+    let ls_openId = window.localStorage.getItem('openid')
     // let ls_openId = 'oipgNwtZu3Pzr9seSLMtKH7EJ2mg'
     let _this = this
 
@@ -64,11 +64,9 @@ export default {
       resource.checkBind({ openId: ls_openId }).then(res => {
         // 已经绑定手机
         if (res.body.result.bind) {
-          window.localStorage.setItem('u_uid', res.body.result.u)
-          window.localStorage.setItem('u_token', res.body.result.t)
+          window.localStorage.setItem('userid', res.body.result.u)
+          window.localStorage.setItem('token', res.body.result.t)
           _this.$router.replace('imlist')
-        } else { //如果没有绑定手机，则走正常流程
-          _this.userInfo.openId = ls_openId
         }
       })
     }
@@ -175,6 +173,7 @@ export default {
         })
         return false
       }
+      this.userInfo.openId = localStorage.getItem('openid')
       resource.register(this.userInfo).then(res => {
         console.log(res)
         if (res.body.code == 0) {
@@ -183,8 +182,8 @@ export default {
             duration: 2000,
             position: 'middle'
           })
-          window.localStorage.setItem('u_uid', res.body.result.u)
-          window.localStorage.setItem('u_token', res.body.result.t)
+          window.localStorage.setItem('userid', res.body.result.u)
+          window.localStorage.setItem('token', res.body.result.t)
           setTimeout(() => {
 
             _this.$router.replace('imlist')

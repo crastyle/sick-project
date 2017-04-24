@@ -13,28 +13,29 @@ export default {
       msgType: true
     }
   },
-  mounted() {
+  created() {
     let _this = this
     this.id = this.$route.query.id
     resource.bindPatientInfo({ patientUserGid: this.id }).then(res => {
       if (res.body.code == 0) {
         _this.bindPatientInfo = res.body.result
         _this.getHistoryRecord()
-        bus.$on('receiveMsg', function (message) {
-          if (message.senderUserId === _this.$route.query.id) {
-            _this.contentList.push({
-              content: message.content.content,
-              type: 0,
-              headImg: _this.bindPatientInfo.headImg
-            })
-          }
-        })
+
       }
     })
     resource.userInfo().then(res => {
       if (res.body.code == 0) {
         _this.userInfo = res.body.result
 
+      }
+    })
+    bus.$on('receiveMsg', function (message) {
+      if (message.senderUserId === _this.$route.query.id) {
+        _this.contentList.push({
+          content: message.content.content,
+          type: 0,
+          headImg: _this.bindPatientInfo.headImg
+        })
       }
     })
   },
@@ -51,6 +52,7 @@ export default {
       //getHistoryMessages
       RongIMClient.getInstance().getHistoryMessages(RongIMLib.ConversationType.PRIVATE, this.$route.query.id, null, 20, {
         onSuccess: function (list, hasMsg) {
+          console.log(list)
           for (let i = 0; i < list.length; i++) {
             if (list[i]['senderUserId'] === _this.$route.query.id) {
               _this.contentList.push({
@@ -58,7 +60,7 @@ export default {
                 type: 0,
                 headImg: _this.bindPatientInfo.headImg
               })
-            } else if (list[i]['senderUserId'] === '156e6fe21f5f45dbb1198d1bc3223cd6') {
+            } else if (list[i]['senderUserId'] === localStorage.getItem('userid')) {
               _this.contentList.push({
                 content: list[i].content.content,
                 type: 1,

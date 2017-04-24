@@ -6,19 +6,19 @@ export default {
     interceports() {
         Vue.http.interceptors.push((req, next) => {
             req.method = "POST"
-            let u = window.localStorage.getItem('u_uid')
-            let t = window.localStorage.getItem('u_token')
+            let u = window.localStorage.getItem('userid')
+            let t = window.localStorage.getItem('token')
             if (!u || u !== "undefined") {
                 if (!req.body) {
                     req.body = {}
                 }
-                // req.body['u'] = u
-                // req.body['t'] = t
-                // req.body['c'] = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 ? 'wechat' : ''
+                req.body['u'] = u
+                req.body['t'] = t
+                req.body['c'] = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 ? 'wechat' : ''
             }
-            req.body['u'] = '7e78d0d0d17146cc86309555de96f473'
-            req.body['t'] = 'o0jil0lonO36KdXenAADTq8-zerc'
-            req.body['c'] = 'wechat'
+            // req.body['u'] = '7e78d0d0d17146cc86309555de96f473'
+            // req.body['t'] = 'o0jil0lonO36KdXenAADTq8-zerc'
+            // req.body['c'] = 'wechat'
             let toast = Toast({
                 message: '请求中...'
             })
@@ -42,8 +42,8 @@ export default {
         })
     },
     resource(url, params) {
-        let doUrl = 'http://139.198.11.46:8080/' + url
-
+        // let doUrl = 'http://139.198.11.46:8080/' + url
+        let doUrl = 'http://czgy.mbjyy.net/' + url
         return Vue.http.post(doUrl, params)
     },
 

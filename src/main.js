@@ -10,7 +10,7 @@ import 'mint-ui/lib/style.css'
 import "./styles/reset-ui.scss"
 import resource from './resource'
 import base from './base'
-import {bus} from './bus'
+import { bus } from './bus'
 import "./styles/app.scss"
 Vue.config.productionTip = false
 
@@ -24,22 +24,28 @@ new Vue({
     if (this.$route.name != 'Login') {
       base.getopenId()
     }
-    resource.rongyunAppKey().then(res => {
-      if (res.body.code == 0) {
-        base.initIm(res.body.result.appKey)
-      }
-    })
+
   },
   created() {
     let _this = this
-    let userid = '7e78d0d0d17146cc86309555de96f473'
-    resource.newtoken({ userGid: userid }).then(res => {
+    localStorage.removeItem('openId')
+    localStorage.removeItem('u_uid')
+    localStorage.removeItem('u_token')
+    let userid = localStorage.getItem('userid')
+    if (!userid) return false
+    resource.rongyunAppKey().then(res => {
       if (res.body.code == 0) {
-        base.watchIM()
-        _this.receiveMsg()
-        base.connectIM(res.body.result.token)
+        base.initIm(res.body.result.appKey)
+        resource.newtoken({ userGid: userid }).then(res => {
+          if (res.body.code == 0) {
+            base.watchIM()
+            _this.receiveMsg()
+            base.connectIM(res.body.result.token)
+          }
+        })
       }
     })
+
   },
   methods: {
     receiveMsg() {
