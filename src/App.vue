@@ -147,5 +147,11 @@ body {
     background: #f2f2f2;
     color: #666;
     height: 100%;
+    position: relative;
+  }
+  .nodata {
+    font-size: .30rem;
+    text-align: center;
+    padding: .3rem 0;
   }
 </style>

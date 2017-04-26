@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import base from '../../base'
+import resource from '../../resource'
 import { Radio, Checklist } from 'mint-ui'
 Vue.component(Radio.name, Radio)
 Vue.component(Checklist.name, Checklist)
@@ -14,6 +16,7 @@ export default {
       defaultIndex: 0,
       answerList: [],
       bindAnswerList: [],
+      openId: '',
       q1: {
         q: '1.对于缺血性卒中的患者，您会在何时启动他汀？',
         a: [{
@@ -85,7 +88,27 @@ export default {
     }
   },
   mounted() {
-    console.log('change')
+    let code = base.getUrlparams('code')
+    let _this = this
+    if (!code) {
+        resource.jsApiConfig().then(res => {
+          let redirect_uri = encodeURIComponent(location.href)
+          let codeUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${res.body.result.appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect `
+          window.location.href = codeUrl
+        })
+      } else {
+        resource.oath({ code: code }).then(res => {
+          _this.openId = res.body.result.openId
+          
+          return resource.checkBind({openId: res.body.result.openId})
+        }).then(res => {
+          if (res.body.result.bind) {
+            localStorage.setItem('userid', res.body.result.u)
+            localStorage.setItem('token', res.body.result.t)
+            _this.$router.replace('imlist')
+          }
+        })
+      }
   },
   methods: {
     prevAnswer() {
@@ -103,7 +126,7 @@ export default {
       this.answerList.push(this.value3)
       this.answerList.push(this.value4)
       window.localStorage.setItem('answerList', this.answerList.join('|'))
-      this.$router.push({ name: 'Register'})
+      this.$router.push({ name: 'Register', query: {openId: this.openId}})
     }
   }
 }

@@ -20,65 +20,71 @@ new Vue({
   router,
   template: '<App/>',
   components: { App },
-  mounted() {
-    if (this.$route.name != 'Login') {
-      base.getopenId()
-    }
-
-  },
   created() {
     let _this = this
-    localStorage.removeItem('openId')
-    localStorage.removeItem('u_uid')
-    localStorage.removeItem('u_token')
-    let userid = localStorage.getItem('userid')
-    if (!userid) return false
-    resource.rongyunAppKey().then(res => {
-      if (res.body.code == 0) {
-        base.initIm(res.body.result.appKey)
-        resource.newtoken({ userGid: userid }).then(res => {
-          if (res.body.code == 0) {
-            base.watchIM()
-            _this.receiveMsg()
-            base.connectIM(res.body.result.token)
-          }
-        })
-      }
-    })
-
-  },
-  methods: {
-    receiveMsg() {
-      // 消息监听器
-      RongIMClient.setOnReceiveMessageListener({
-        // 接收到的消息
-        onReceived: function (message) {
-          // 判断消息类型
-          bus.$emit('receiveMsg', message)
-          console.log(message)
-          switch (message.messageType) {
-            case RongIMClient.MessageType.TextMessage:
-              // 发送的消息内容将会被打印
-              console.log(message.content.content);
-              break;
-            case RongIMClient.MessageType.VoiceMessage:
-              // 对声音进行预加载                
-              // message.content.content 格式为 AMR 格式的 base64 码
-              RongIMLib.RongIMVoice.preLoaded(message.content.content);
-              break;
-            case RongIMClient.MessageType.ImageMessage:
-              // do something...
-              break;
-            case RongIMClient.MessageType.UnknownMessage:
-              // do something...
-              break;
-            default:
-            // 自定义消息
-            // do something...
-          }
+    
+    let route = this.$route.name
+    console.log(route)
+    if (route !== 'PatientCare' && route !== 'Register') {
+      // 如果是在注册页面，让他授权登录
+      resource.userInfo().then(res => {
+        console.log(res)
+        if (res.body.code == 0) {
+          let userid = res.body.result.userGid
+          let rongyunToken = res.body.result.rongyunToken
+          resource.rongyunAppKey().then(res => {
+            if (res.body.code == 0) {
+              base.initIm(res.body.result.appKey)
+              if (!rongyunToken) {
+                base.watchIM()
+                base.receiveMsg()
+                base.connectIM(rongyunToken)
+                bus.$emit('imLoad')
+              } else {
+                resource.newtoken({ userGid: userid }).then(res => {
+                  if (res.body.code == 0) {
+                    base.watchIM()
+                    base.receiveMsg()
+                    base.connectIM(res.body.result.token)
+                    bus.$emit('imLoad')
+                  }
+                })
+              }
+            }
+          })
+        } else {
+          _this.$router.replace('patientCare')
         }
       })
     }
-  }
 
+
+    // resource.userInfo().then(res => {
+    //     if (res.body.code == 0) {
+    //       let userid = res.body.result.userGid
+    //       let rongyunToken = res.body.result.rongyunToken
+    //       resource.rongyunAppKey().then(res => {
+    //         if (res.body.code == 0) {
+    //           base.initIm(res.body.result.appKey)
+    //           if (!rongyunToken) {
+    //             base.watchIM()
+    //             base.receiveMsg()
+    //             base.connectIM(rongyunToken)
+    //           } else {
+    //             resource.newtoken({ userGid: userid }).then(res => {
+    //               if (res.body.code == 0) {
+    //                 base.watchIM()
+    //                 base.receiveMsg()
+    //                 base.connectIM(res.body.result.token)
+    //               }
+    //             })
+    //           }
+    //         }
+    //       })
+    //     } else {
+    //       _this.$router.replace('patientCare')
+    //     }
+    //   })
+
+  }
 })

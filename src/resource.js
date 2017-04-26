@@ -14,10 +14,10 @@ export default {
                 }
                 req.body['u'] = u
                 req.body['t'] = t
-                req.body['c'] = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 ? 'wechat' : ''
+                req.body['c'] = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 ? 'wechat' : 'wechat'
             }
             // req.body['u'] = '7e78d0d0d17146cc86309555de96f473'
-            // req.body['t'] = 'o0jil0lonO36KdXenAADTq8-zerc'
+            // req.body['t'] = 'xxx'
             // req.body['c'] = 'wechat'
             let toast = Toast({
                 message: '请求中...'
@@ -149,5 +149,14 @@ export default {
     newtoken(params) {
         params.app = 'doctor'
         return this.resource('rongyun/gateway/doctor/newToken', params)
+    },
+    getPatientListByIds(params) {
+        return this.resource('doctor/myPatient/patientList', params)
+    },
+    sendToSpecifiedPatient(params) {
+        return this.resource('doctor/myPatient/sendToSpecifiedPatient', params)
+    },
+    sendToAllPatient(params) {
+        return this.resource('doctor/myPatient/sendToAllPatient', params)
     }
 }

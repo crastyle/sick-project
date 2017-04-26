@@ -21,18 +21,50 @@ export default {
       searchLoad: true,
       searchPatientList: [],
       searchLocalData: [],
-      isSearch: false
+      isSearch: false,
+      isActiveGroup: false,
+      activeList: [{
+        isActive: false
+      }],
+      groupIds: [],
+      selected: false,
+      selectedUsers: []
     }
   },
   mounted() {
 
   },
+  created() {
+    console.log(this.$route)
+  },
   methods: {
     sicker: function () {
       this.$router.push('sicker')
     },
-    patientCalendar(id) {
-      this.$router.push({name: 'Sicker', query: {id: id}})
+    patientCalendar(user, index) {
+
+
+      console.log(user)
+      if (this.isActiveGroup) {
+        if (!user.isActive) {
+          user.isActive = true
+          this.selectedUsers.push(user.patientUserGid)
+        } else {
+          user.isActive = false
+          this.selectedUsers.splice(user.patientUserGid, 1)
+        }
+
+        if (this.selectedUsers.length > 0) {
+          this.selected = true
+        } else {
+          this.selected = false
+        }
+
+        
+      } else {
+        this.$router.push({ name: 'Sicker', query: { id: user.patientUserGid } })
+      }
+
     },
     paginationSearch() {
       let _this = this
@@ -61,6 +93,10 @@ export default {
           }
         })
       }
+
+    },
+    userInfo(user) {
+      console.log(user)
     },
     search(e) {
       this.searchPatientList = []
@@ -88,6 +124,19 @@ export default {
           }
         }
       })
+    },
+    showGroup() {
+      this.isActiveGroup = true
+    },
+    sendAll() {
+      this.$router.push({name: 'GroupChat', query: {type: 1}})
+    },
+    sendInfoGroup() {
+
+      this.$router.push({name: 'GroupChat', query: {type: 0} ,params: {ids: this.selectedUsers}})
+    },
+    cancelActiveGroup() {
+      this.isActiveGroup = false
     }
   }
 }

@@ -1,10 +1,10 @@
 <template>
     <div class="sicklistPage">
         <mt-header title="患者">
-            <router-link to="/" slot="left">
-                <mt-button icon="back"></mt-button>
-            </router-link>
-            <mt-button slot="right">群发</mt-button>
+           
+            <mt-button slot="left" v-if="isActiveGroup" @click="cancelActiveGroup">取消</mt-button>
+            <mt-button slot="right" @click="showGroup" v-if="!isActiveGroup">群发</mt-button>
+            <mt-button slot="right" v-if="isActiveGroup" @click="sendAll">发给所有人</mt-button>
         </mt-header>
         <div class="search-bar">
             <div class="mint-searchbar">
@@ -18,8 +18,12 @@
         <div class="list" v-if="!isSearch" v-infinite-scroll="paginationData" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
             <div class="crumb" v-for="item in localData">
                 <div class="list-header">{{item.item}}</div>
-                <div class="item-list" v-for="key in item.list" @click="patientCalendar(key.patientUserGid)">
-                    <div class="item" >
+                <div class="item-list" v-for="(key, index) in item.list" @click="patientCalendar(key, index)">
+                    <div class="item">
+                        <div class="group" v-bind:class="{'show': isActiveGroup}">
+                            <input type="checkbox" v-model="key.isActive" class="mint-checkbox-input">
+                            <span class="mint-checkbox-core"></span>
+                        </div>
                         <img :src="key.headImg" alt="">
                         <span class="username">{{key.name}}</span>
                     </div>
@@ -29,28 +33,22 @@
         <div class="list" v-if="isSearch" v-infinite-scroll="paginationSearch" infinite-scroll-disabled="searchLoad" infinite-scroll-distance="10">
             <div class="crumb" v-for="item in searchLocalData">
                 <div class="list-header">{{item.item}}</div>
-                <div class="item-list" v-for="key in item.list" @click="patientCalendar(key.patientUserGid)">
+                <div class="item-list" v-for="(key, index) in item.list" @click="patientCalendar(key, index)">
                     <div class="item" >
+                        <div class="group" v-bind:class="{'show': isActiveGroup}">
+                            <input type="checkbox" v-model="key.isActive" class="mint-checkbox-input">
+                            <span class="mint-checkbox-core"></span>
+                        </div>
                         <img :src="key.headImg" alt="">
                         <span class="username">{{key.name}}</span>
                     </div>
                 </div>
             </div>
         </div>
-        <footer>
-            <router-link to="/imlist" exact>
-                <i class="footer_icon"></i>
-                <p>对话</p>
-            </router-link>
-            <router-link to="/sicklist" exact>
-                <i class="footer_icon"></i>
-                <p>患者</p>
-            </router-link>
-            <router-link to="/userinfo" exact>
-                <i class="footer_icon"></i>
-                <p>我的</p>
-            </router-link>
-        </footer>
+        <div class="send-part" v-if="selected">
+            <mt-button type="primary" size="large" @click="sendInfoGroup">发送消息</mt-button>
+        </div>
+     
     </div>
 </template>
 

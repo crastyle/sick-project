@@ -1,4 +1,5 @@
 import resource from './resource'
+import {bus} from './bus'
 export default {
     validate: {
         isTelephone(val) {
@@ -220,10 +221,11 @@ export default {
             }
         });
     },
-    receiveMessage() {
+    receiveMsg() {
         RongIMClient.setOnReceiveMessageListener({
             // 接收到的消息
             onReceived: function (message) {
+                bus.$emit('receiveMsg', message)
                 // 判断消息类型
                 switch (message.messageType) {
                     case RongIMClient.MessageType.TextMessage:

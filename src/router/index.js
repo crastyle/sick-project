@@ -10,12 +10,13 @@ import PatientCare from '../pages/patientCare/patientCare.vue'
 import Chat from '../pages/chat/chat.vue'
 import Login from '../pages/login/login.vue'
 import Cropper from '../pages/cropper/cropper.vue'
+import GroupChat from '../pages/groupChat/groupChat.vue'
 //@import
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {path: '/',name: 'Hello',component: Register},
+    {path: '/',name: 'Hello',component: PatientCare},
     {path: '/register',name: 'Register',component: Register},
     {path: '/patientCare',name: 'PatientCare',component: PatientCare},
     {path: '/sicker',name: 'Sicker',component: Sicker},
@@ -24,7 +25,8 @@ export default new Router({
     {path: '/chat',name: 'chat',component: Chat},
     {path: '/userinfo',name: 'Userinfo',component: Userinfo,meta: { menuShow: true}},
     {path: '/login',name: 'Login',component: Login},
-    {path: '/cropper',name: 'Cropper',component: Cropper}//@register
+    {path: '/cropper',name: 'Cropper',component: Cropper},
+    {path: '/groupChat',name: 'GroupChat',component: GroupChat}//@register
 
   ]
 })

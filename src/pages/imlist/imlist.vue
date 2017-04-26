@@ -1,14 +1,18 @@
 <template>
     <div class="imlistPage">
         <div class="item-list">
-            <!--
+        <!--
             <div class="item" @click="chat">
                 <img src="../../assets/image/demo-avatar.png" alt="">
                 <div class="username">安跑</div>
                 <div class="timer">3-25</div>
                 <div class="content">今晚吃药啊</div>
             </div>
-          -->
+            -->
+            <div class="nodata">
+              暂无数据
+            </div>
+            
         </div>
       <footer>
         <router-link to="/imlist" exact>
