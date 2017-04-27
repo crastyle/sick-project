@@ -1,6 +1,7 @@
 import resource from '../../resource'
 import base from '../../base'
 import { bus } from '../../bus'
+import {Toast} from 'mint-ui'
 export default {
   name: 'Chat',
   data() {
@@ -81,6 +82,13 @@ export default {
       this.msgType = !this.msgType
     },
     sendMsg() {
+      if (!this.chatContent) {
+        Toast({
+          message: '说点儿什么吧？',
+          duration: 1500
+        })
+        return false
+      }
       let _this = this
       // 定义消息类型,文字消息使用 RongIMLib.TextMessage
       var msg = new RongIMLib.TextMessage({ content: this.chatContent, extra: "" });

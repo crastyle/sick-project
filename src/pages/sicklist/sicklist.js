@@ -42,9 +42,6 @@ export default {
       this.$router.push('sicker')
     },
     patientCalendar(user, index) {
-
-
-      console.log(user)
       if (this.isActiveGroup) {
         if (!user.isActive) {
           user.isActive = true

@@ -45,8 +45,10 @@ new Vue({
                   if (res.body.code == 0) {
                     base.watchIM()
                     base.receiveMsg()
-                    base.connectIM(res.body.result.token)
-                    bus.$emit('imLoad')
+                    base.connectIM(res.body.result.token, function(){
+                      console.log('connect load')
+                      bus.$emit('imLoad')
+                    })
                   }
                 })
               }

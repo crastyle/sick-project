@@ -47,6 +47,10 @@ export default {
     if(!localStorage.getItem('answerList') || !this.$route.query.openId) {
       this.$router.replace('patientCare')
     }
+    if (this.$route.params.imgurl) {
+      this.userInfo.headImg = this.$route.params.imgurl
+    }
+    console.log()
     this.userInfo.openId = this.$route.query.openId
     this.userInfo.answerList = localStorage.getItem('answerList').split('|')
 
@@ -108,7 +112,7 @@ export default {
       })
     },
     upHeadImg() {
-      this.$router.push({ name: 'Cropper', query: { redirect: 'Register' } })
+      this.$router.push({ name: 'Cropper', query: { redirect: 'Register',openId: this.$route.query.openId } })
     },
     register() {
       let name = this.userInfo.name

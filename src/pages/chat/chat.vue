@@ -1,10 +1,6 @@
 <template>
   <div class="chatPage">
-  <mt-header :title="bindPatientInfo.name">
-          <router-link to="/imlist" slot="left">
-            <mt-button icon="back"></mt-button>
-          </router-link>
-        </mt-header>
+  <mt-header :title="bindPatientInfo.name"></mt-header>
 
     <div class="chat_body clearfix" id="content">
       <!-- 左边 文字 -->

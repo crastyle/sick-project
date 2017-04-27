@@ -1,5 +1,6 @@
 import base from '../../base'
 import resource from '../../resource'
+import {Toast} from 'mint-ui'
 import { bus } from '../../bus'
 export default {
   name: 'Imlist',
@@ -12,9 +13,15 @@ export default {
       userInfo: {}
     }
   },
-  mounted() {
-    let _this = this
-    _this.getChatList()
+  created() {
+    const _this = this
+    const toast = Toast({
+      message: '数据获取中...'
+    })
+    bus.$on('imLoad', function() {
+      _this.getChatList()
+      toast.close()
+    })
   },
   methods: {
     chat: function () {
@@ -25,22 +32,6 @@ export default {
       RongIMClient.getInstance().getConversationList({
         onSuccess: function (list) {
           console.log(list)
-          resource.userInfo().then(res => {
-
-            if (res.body.code == 0) {
-              let pushArr = []
-              _this.userInfo  = res.body.result
-              for(let i = 0; i < list.length ; i++) {
-                if (list[i]['targetId'] == _this.userInfo.userGid) {
-                  pushArr.push(list[i]['senderUserId'])
-                }
-              }
-            }
-          })
-
-          _this.enter = true
-          _this.chatList = list
-          
           // list => 会话列表集合。
         },
         onError: function (error) {

@@ -57,11 +57,12 @@
                 }
             }
             .emotion {
-                width: 100%;
-                height: 100%;
+                width: .64rem;
+                height: .64rem;
                 background: url("../../assets/image/icon_voiceinput.png") no-repeat center center;
                 background-size: auto 0.64rem;
-                display: block;
+                display: inline-block;
+                vertical-align: middle;
             }
             .on.emotion {
                 width: 100%;

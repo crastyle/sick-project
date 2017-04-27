@@ -194,6 +194,7 @@ export default {
         RongIMClient.connect(token, {
             onSuccess: function (userId) {
                 console.log("Login successfully." + userId);
+                cb()
             },
             onTokenIncorrect: function () {
                 console.log('token无效');
