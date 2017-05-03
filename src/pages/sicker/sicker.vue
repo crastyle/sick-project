@@ -6,7 +6,7 @@
           </router-link>
           <mt-button slot="right" @click="deleteItem">删除</mt-button>
         </mt-header>
-        <div class="sicker-info">
+        <div class="sicker-info" @click="sendInfo">
             <div class="avatar">
                 <img :src="bindPatientInfo.headImg" alt="">
             </div>

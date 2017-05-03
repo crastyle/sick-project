@@ -1,18 +1,13 @@
 <template>
     <div class="imlistPage">
         <div class="item-list">
-        <!--
-            <div class="item" @click="chat">
-                <img src="../../assets/image/demo-avatar.png" alt="">
-                <div class="username">安跑</div>
-                <div class="timer">3-25</div>
-                <div class="content">今晚吃药啊</div>
+            <div class="item" @click="goChat(chat)" v-for="chat in chatList" v-if="chatList.length > 0">
+                <i class="newMsg" v-if="chat.isNewMessage"></i>
+                <img :src="chat.userInfo.headImg" alt="">
+                <div class="username">{{chat.userInfo.name}}</div>
+                <div class="timer">{{chat.sendTime}}</div>
+                <div class="content">{{chat.content}}</div>
             </div>
-            -->
-            <div class="nodata">
-              暂无数据
-            </div>
-            
         </div>
       <footer>
         <router-link to="/imlist" exact>

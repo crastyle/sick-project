@@ -70,7 +70,7 @@ export default {
     showHospital() {
       let _this = this
       this.type = 'hospital'
-      resource.hospital({ namePrefix: '北京' }).then(res => {
+      resource.hospital({ namePrefix: '' }).then(res => {
         if (res.body.code == 0) {
           _this.data = res.body.result
           this.visible = true
@@ -174,7 +174,10 @@ export default {
                 if (res.body.code == 0) {
                   base.watchIM()
                   base.receiveMsg()
-                  base.connectIM(token)
+                  base.connectIM(res.body.result.token, function(){
+                    window.onLoadingIMStatus = true
+                      bus.$emit('imLoad')
+                  })
                 }
               })
             }

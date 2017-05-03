@@ -17,7 +17,7 @@ export default {
                 req.body['c'] = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 ? 'wechat' : 'wechat'
             }
             // req.body['u'] = '7e78d0d0d17146cc86309555de96f473'
-            // req.body['t'] = 'xxx'
+            // req.body['t'] = 'onwlo0rBYjqJ5ayGS7o9Fn0N9N_g'
             // req.body['c'] = 'wechat'
             let toast = Toast({
                 message: '请求中...'

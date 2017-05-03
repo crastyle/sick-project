@@ -1,7 +1,7 @@
 import resource from '../../resource'
 import base from '../../base'
 import { bus } from '../../bus'
-import {Toast} from 'mint-ui'
+import { Toast } from 'mint-ui'
 export default {
   name: 'Chat',
   data() {
@@ -17,19 +17,41 @@ export default {
   created() {
     let _this = this
     this.id = this.$route.query.id
-    resource.bindPatientInfo({ patientUserGid: this.id }).then(res => {
-      if (res.body.code == 0) {
-        _this.bindPatientInfo = res.body.result
-        _this.getHistoryRecord()
-
-      }
+    //第一次进入需要事件通知加载完成
+    let toast = Toast({
+      message: '加载中...'
     })
-    resource.userInfo().then(res => {
-      if (res.body.code == 0) {
-        _this.userInfo = res.body.result
+    bus.$on('imLoad', function () {
+      toast.close()
+      resource.bindPatientInfo({ patientUserGid: _this.id }).then(res => {
+        if (res.body.code == 0) {
+          _this.bindPatientInfo = res.body.result
+        }
+        return resource.userInfo()
+      }).then(res => {
+        if (res.body.code == 0) {
+          _this.userInfo = res.body.result
+          _this.getHistoryRecord()
 
-      }
+        }
+      })
     })
+    //第二次进入直接全局变量控制加载
+    if (window.onLoadingIMStatus) {
+      resource.bindPatientInfo({ patientUserGid: _this.id }).then(res => {
+        if (res.body.code == 0) {
+          _this.bindPatientInfo = res.body.result
+        }
+        return resource.userInfo()
+      }).then(res => {
+        if (res.body.code == 0) {
+          _this.userInfo = res.body.result
+          _this.getHistoryRecord()
+        }
+      })
+    }
+
+
     bus.$on('receiveMsg', function (message) {
       if (message.senderUserId === _this.$route.query.id) {
         _this.contentList.push({
@@ -51,7 +73,7 @@ export default {
     getHistoryRecord() {
       let _this = this
       //getHistoryMessages
-      RongIMClient.getInstance().getHistoryMessages(RongIMLib.ConversationType.PRIVATE, this.$route.query.id, null, 20, {
+      RongIMClient.getInstance().getHistoryMessages(RongIMLib.ConversationType.PRIVATE, this.$route.query.id, 0, 20, {
         onSuccess: function (list, hasMsg) {
           console.log(list)
           for (let i = 0; i < list.length; i++) {

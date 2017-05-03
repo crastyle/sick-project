@@ -1,25 +1,26 @@
 <template>
     <div class="userinfoPage">
+        <Panel :data="data" :visible="visible" :type="type"></Panel>
         <div class="item-list">
-            <div class="item">
+            <div class="item" @click="updateHead">
                 <div class="bd-l">
                     头像
                 </div>
                 <img :src="userInfo.headImg" alt="">
             </div>
-            <div class="item">
+            <div class="item" @click="updateName">
                 <div class="bd-l">
                     姓名
                 </div>
                 <div class="username">{{userInfo.name}}</div>
             </div>
-            <div class="item">
+            <div class="item" @click="updateHospital">
                 <div class="bd-l">
                     医院
                 </div>
-                <div class="username">{{userInfo.hospital}}</div>
+                <div class="username hospital">{{userInfo.hospital}}</div>
             </div>
-            <div class="item">
+            <div class="item" @click="updateDepartment">
                 <div class="bd-l">
                     科室
                 </div>

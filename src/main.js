@@ -12,6 +12,7 @@ import resource from './resource'
 import base from './base'
 import { bus } from './bus'
 import "./styles/app.scss"
+// import 'vconsole';
 Vue.config.productionTip = false
 
 resource.interceports()
@@ -22,13 +23,12 @@ new Vue({
   components: { App },
   created() {
     let _this = this
-    
+    window.onLoadingIMStatus = false
     let route = this.$route.name
     console.log(route)
-    if (route !== 'PatientCare' && route !== 'Register') {
+    if (route !== 'PatientCare' && route !== 'Register' && route !== 'Hello') {
       // 如果是在注册页面，让他授权登录
       resource.userInfo().then(res => {
-        console.log(res)
         if (res.body.code == 0) {
           let userid = res.body.result.userGid
           let rongyunToken = res.body.result.rongyunToken
@@ -46,7 +46,7 @@ new Vue({
                     base.watchIM()
                     base.receiveMsg()
                     base.connectIM(res.body.result.token, function(){
-                      console.log('connect load')
+                      window.onLoadingIMStatus = true
                       bus.$emit('imLoad')
                     })
                   }

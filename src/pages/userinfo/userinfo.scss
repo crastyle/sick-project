@@ -1,10 +1,11 @@
+@import '../../styles/app.scss';
 .userinfoPage {
     .item-list {
         padding-left: .3rem;
         background: #fff;
         .item {
             border-bottom: 1px solid #D9D9D9;
-            height: .86rem;
+            min-height: .86rem;
             line-height: .86rem;
             padding: .15rem .3rem;
             padding-left: 0;
@@ -24,9 +25,11 @@
             }
             .username {
                 font-size: 20px;
-                color: #333333;
+                color: #333;
                 display: block;
                 position: relative;
+                width: 5rem;
+                margin-left: 2rem;
                 &.link:after {
                     content: '';
                     width: .19rem;

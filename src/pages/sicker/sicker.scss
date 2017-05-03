@@ -31,7 +31,7 @@
         }
     }
     .medicine-card {
-        margin: .3rem 0;
+        margin: 10px 0;
         background: #fff;
         min-height: 7.28rem;
         border-radius: 8px;
@@ -70,7 +70,7 @@
     }
     .calendar-card {
         background: #fff;
-        margin-top: 30px;
+        margin-top: 10px;
         transition: .4s all;
         transform: perspective(600px) rotateY(0deg);
         &.transition-hide {

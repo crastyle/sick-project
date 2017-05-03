@@ -18,14 +18,13 @@
         <div class="list" v-if="!isSearch" v-infinite-scroll="paginationData" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
             <div class="crumb" v-for="item in localData">
                 <div class="list-header">{{item.item}}</div>
-                <div class="item-list" v-for="(key, index) in item.list" @click="patientCalendar(key, index)">
+                <div class="item-list" v-for="(user, index) in item.list" @click="patientCalendar(user, $event)" :key="index">
                     <div class="item">
                         <div class="group" v-bind:class="{'show': isActiveGroup}">
-                            <input type="checkbox" v-model="key.isActive" class="mint-checkbox-input">
-                            <span class="mint-checkbox-core"></span>
+                            <span class="mint-checkbox-core " v-bind:class="{'checked': user.isActive}"></span>
                         </div>
-                        <img :src="key.headImg" alt="">
-                        <span class="username">{{key.name}}</span>
+                        <img :src="user.headImg" alt="">
+                        <span class="username">{{user.name}}</span>
                     </div>
                 </div>
             </div>
@@ -33,14 +32,13 @@
         <div class="list" v-if="isSearch" v-infinite-scroll="paginationSearch" infinite-scroll-disabled="searchLoad" infinite-scroll-distance="10">
             <div class="crumb" v-for="item in searchLocalData">
                 <div class="list-header">{{item.item}}</div>
-                <div class="item-list" v-for="(key, index) in item.list" @click="patientCalendar(key, index)">
+                <div class="item-list" v-for="(user, index) in item.list" @click="patientCalendar(user, index)">
                     <div class="item" >
                         <div class="group" v-bind:class="{'show': isActiveGroup}">
-                            <input type="checkbox" v-model="key.isActive" class="mint-checkbox-input">
-                            <span class="mint-checkbox-core"></span>
+                            <span class="mint-checkbox-core " v-bind:class="{'checked': user.isActive}"></span>
                         </div>
-                        <img :src="key.headImg" alt="">
-                        <span class="username">{{key.name}}</span>
+                        <img :src="user.headImg" alt="">
+                        <span class="username">{{user.name}}</span>
                     </div>
                 </div>
             </div>

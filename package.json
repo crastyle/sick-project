@@ -53,6 +53,7 @@
     "sass-loader": "^6.0.3",
     "semver": "^5.3.0",
     "url-loader": "^0.5.7",
+    "vconsole": "^2.5.2",
     "vue-event-calendar": "^1.2.14",
     "vue-loader": "^11.1.4",
     "vue-resource": "^1.2.1",

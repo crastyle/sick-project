@@ -31,17 +31,12 @@ export default {
       selectedUsers: []
     }
   },
-  mounted() {
-
-  },
-  created() {
-    console.log(this.$route)
-  },
   methods: {
     sicker: function () {
       this.$router.push('sicker')
     },
-    patientCalendar(user, index) {
+    patientCalendar(user, event) {
+      console.log(user)
       if (this.isActiveGroup) {
         if (!user.isActive) {
           user.isActive = true
@@ -50,18 +45,14 @@ export default {
           user.isActive = false
           this.selectedUsers.splice(user.patientUserGid, 1)
         }
-
         if (this.selectedUsers.length > 0) {
           this.selected = true
         } else {
           this.selected = false
         }
-
-        
       } else {
         this.$router.push({ name: 'Sicker', query: { id: user.patientUserGid } })
       }
-
     },
     paginationSearch() {
       let _this = this
@@ -75,11 +66,13 @@ export default {
           pageNumber: this.searchPageNumber,
           namePrefix: this.namePrefix
         }).then((res) => {
-          console.log(res)
           if (res.body.code == 0) {
             if (res.body.result.rows.length == 0) {
               _this.searchLoad = false
             } else {
+              for (let i = 0; i < res.body.result.rows.length; i++) {
+                res.body.result.rows[i].isActive = false
+              }
               _this.searchPatientList = _this.searchPatientList.concat(res.body.result.rows)
               for (let i = 0; i < _this.searchPatientList.length; i++) {
                 _this.searchPatientList[i]['group'] = _this.searchPatientList[i]['namepy'].charAt(0).toUpperCase()
@@ -112,6 +105,10 @@ export default {
           if (res.body.result.rows.length == 0) {
             _this.load = false
           } else {
+            for (let i = 0; i < res.body.result.rows.length; i++) {
+              res.body.result.rows[i].isActive = false
+            }
+            console.log(res.body.result.rows)
             _this.patientList = _this.patientList.concat(res.body.result.rows)
             for (let i = 0; i < _this.patientList.length; i++) {
               _this.patientList[i]['group'] = _this.patientList[i]['namepy'].charAt(0).toUpperCase()
@@ -123,17 +120,20 @@ export default {
       })
     },
     showGroup() {
+      console.log(this.$route)
       this.isActiveGroup = true
+      this.$route.meta.menuShow = false
     },
     sendAll() {
-      this.$router.push({name: 'GroupChat', query: {type: 1}})
+      this.$router.push({ name: 'GroupChat', query: { type: 1 } })
     },
     sendInfoGroup() {
 
-      this.$router.push({name: 'GroupChat', query: {type: 0} ,params: {ids: this.selectedUsers}})
+      this.$router.push({ name: 'GroupChat', query: { type: 0 }, params: { ids: this.selectedUsers } })
     },
     cancelActiveGroup() {
       this.isActiveGroup = false
+      this.$route.meta.menuShow = true
     }
   }
 }
