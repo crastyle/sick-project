@@ -31,6 +31,12 @@ export default {
       selectedUsers: []
     }
   },
+ beforeRouteLeave(to, from ,next) {
+   
+   document.querySelector('footer').style.display = 'flex'
+
+   next(true)
+ },
   methods: {
     sicker: function () {
       this.$router.push('sicker')
@@ -83,10 +89,6 @@ export default {
           }
         })
       }
-
-    },
-    userInfo(user) {
-      console.log(user)
     },
     search(e) {
       this.searchPatientList = []
@@ -95,7 +97,6 @@ export default {
       this.paginationSearch()
     },
     paginationData() {
-
       let _this = this
       resource.bindPatientList({
         pageSize: this.pageSize,
@@ -120,20 +121,20 @@ export default {
       })
     },
     showGroup() {
-      console.log(this.$route)
       this.isActiveGroup = true
-      this.$route.meta.menuShow = false
+      document.querySelector('footer').style.display = 'none'
     },
     sendAll() {
       this.$router.push({ name: 'GroupChat', query: { type: 1 } })
+
     },
     sendInfoGroup() {
-
       this.$router.push({ name: 'GroupChat', query: { type: 0 }, params: { ids: this.selectedUsers } })
+
     },
     cancelActiveGroup() {
       this.isActiveGroup = false
-      this.$route.meta.menuShow = true
+      document.querySelector('footer').style.display = 'flex'
     }
   }
 }

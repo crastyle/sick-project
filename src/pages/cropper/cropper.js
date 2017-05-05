@@ -27,7 +27,7 @@ export default {
       this.cropperImagesOption.width = parseInt(this.cropperImagesOption.width)
       resource.uploadImageWithCrop(this.cropperImagesOption).then(res => {
         let imgurl = res.body.result.imageUrl
-        if(_this.redirect == "More") {
+        if(_this.redirect == "Userinfo") {
           resource.updateUserInfo({headImg: imgurl}).then(res => {
             if (res.body.code == 0) {
               _this.$router.replace(_this.redirect)

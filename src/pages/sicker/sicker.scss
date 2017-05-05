@@ -70,7 +70,7 @@
     }
     .calendar-card {
         background: #fff;
-        margin-top: 10px;
+        margin-top: 5px;
         transition: .4s all;
         transform: perspective(600px) rotateY(0deg);
         &.transition-hide {
@@ -78,6 +78,6 @@
         }
     }
     .section-button {
-        margin-top: .7rem;
+        margin-top: .3rem;
     }
 }

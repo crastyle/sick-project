@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="send-part" v-if="selected">
-            <mt-button type="primary" size="large" @click="sendInfoGroup">发送消息</mt-button>
+            <mt-button type="primary" size="large" @click="sendInfoGroup">下一步（{{selectedUsers.length}}）</mt-button>
         </div>
      
     </div>

@@ -14,6 +14,12 @@
                 </div>
                 <div class="username">{{userInfo.name}}</div>
             </div>
+            <div class="item" @click="updateMobile">
+                <div class="bd-l">
+                    手机
+                </div>
+                <div class="username">{{userInfo.mobile}}</div>
+            </div>
             <div class="item" @click="updateHospital">
                 <div class="bd-l">
                     医院
@@ -37,6 +43,46 @@
             <div class="tip">我的二维码</div>
             <img :src="userInfo.identifyImg" alt="">
         </div>
+        <div class="doctor_dialog" v-if="showMobile">
+  
+      <div class="doctor_mask doctor-mask_transparent"></div>
+  
+      <div class="doctor_message">
+  
+        <div class="doctor_hd">更换手机号码</div>
+  
+        <div class="doctor_bd">
+  
+          <!-- 姓名 年龄 手机号-->
+  
+          <input type="tel" v-model="mobile">
+  
+          <!-- 验证码 -->
+  
+          <div class="code">
+  
+            <input type="text" v-model="userInfo.smsCode">
+  
+            <a href="javascript:;" class="button" @click="getCode" v-bind:class="{'disabled': buttonStatus}">{{validButtonText}}</a>
+  
+          </div>
+  
+        </div>
+  
+        <div class="doctor_ft">
+  
+          <a href="javascript:;" class="doctor_dialog_cancel" @click="cancelDialog">取消</a>
+  
+          <a href="javascript:;" @click="validMobile">确定</a>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+        
+
+
       <footer>
         <router-link to="/imlist" exact>
           <i class="footer_icon"></i>

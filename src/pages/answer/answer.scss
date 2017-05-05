@@ -1,0 +1,38 @@
+.answerPage {
+    font-size: .32rem;
+  position: relative;
+  height: 100%;
+  background: #fff;
+  h2 {
+    font-size: .6rem;
+    padding: 1.5rem 0 0;
+    color: #1D8CDC;
+    text-align: center;
+  }
+  p {
+    color: #999;
+    padding-bottom:.8rem;
+    text-align: center;
+  }
+  .content {
+    text-align: center;
+    p{
+      margin: 0 auto;
+      color: #333;
+      font-size: .4rem;
+      margin: 0 10px;
+    }
+  }
+}
+.page-swipe {
+  p {
+    text-align: left;
+  }
+}
+.button-cell {
+  display: -webkit-flex;
+  .cell-item {
+    flex: 1;
+    padding: 0 10px;
+  }
+}

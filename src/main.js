@@ -12,9 +12,11 @@ import resource from './resource'
 import base from './base'
 import { bus } from './bus'
 import "./styles/app.scss"
+import VueTouch from 'vue-touch'
 // import 'vconsole';
 Vue.config.productionTip = false
-
+Vue.use(VueTouch, {name: 'v-touch'})
+Vue.prototype.$footerShow = true
 resource.interceports()
 new Vue({
   el: '#app',

@@ -3,7 +3,6 @@
     <h2>患者关怀·医生端</h2>
     <p>注册前请完成以下4个题目</p>
     <div class="content">
-  
       <div class="page-swipe" v-if="defaultIndex==0">
         <p>{{q1.q}}</p>
         <mt-radio v-model="value1" :options="q1.a"></mt-radio>
@@ -37,9 +36,9 @@
 </template>
 
 <style lang="scss" scoped>
-  @import './patientCare.scss';
+@import './patientCare.scss';
 </style>
 
 <script src="./patientCare">
-  
+
 </script>

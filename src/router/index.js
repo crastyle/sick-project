@@ -11,6 +11,7 @@ import Chat from '../pages/chat/chat.vue'
 import Login from '../pages/login/login.vue'
 import Cropper from '../pages/cropper/cropper.vue'
 import GroupChat from '../pages/groupChat/groupChat.vue'
+import Answer from '../pages/answer/answer.vue'
 //@import
 Vue.use(Router)
 
@@ -26,7 +27,8 @@ export default new Router({
     {path: '/userinfo',name: 'Userinfo',component: Userinfo,meta: { menuShow: true}},
     {path: '/login',name: 'Login',component: Login},
     {path: '/cropper',name: 'Cropper',component: Cropper},
-    {path: '/groupChat',name: 'GroupChat',component: GroupChat}//@register
+    {path: '/groupChat',name: 'GroupChat',component: GroupChat},
+    {path: '/answer',name: 'Answer',component: Answer}//@register
 
   ]
 })

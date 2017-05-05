@@ -6,10 +6,9 @@ import { Radio, Checklist } from 'mint-ui'
 Vue.component(Radio.name, Radio)
 Vue.component(Checklist.name, Checklist)
 export default {
-  name: 'PatientCare',
+  name: 'Answer',
   data() {
     return {
-      msg: 'Welcome to PatientCare',
       value1: '',
       value2: [],
       value3: '',
@@ -89,47 +88,7 @@ export default {
     }
   },
   mounted() {
-    let code = base.getUrlparams('code')
-    let openId = this.$route.query.openId
-    let _this = this
-    if (!code) {
-      resource.jsApiConfig().then(res => {
-        let redirect_uri = encodeURIComponent(location.href)
-        let codeUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${res.body.result.appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect `
-        window.location.href = codeUrl
-      })
-    } else {
-      resource.oath({ code: code }).then(res => {
-        _this.openId = res.body.result.openId
-        if (res.body.code == 0) {
-          return resource.checkBind({ openId: res.body.result.openId })
-        }
-      }).then(res => {
-        if (res.body.result.bind) {
-          let userid = res.body.result.u
-          localStorage.setItem('userid', userid)
-          localStorage.setItem('token', res.body.result.t)
-          resource.rongyunAppKey().then(res => {
-            if (res.body.code == 0) {
-              base.initIm(res.body.result.appKey)
-              resource.newtoken({ userGid: userid }).then(res => {
-                if (res.body.code == 0) {
-                  base.watchIM()
-                  base.receiveMsg()
-                  base.connectIM(res.body.result.token, function () {
-                    window.onLoadingIMStatus = true
-                    bus.$emit('imLoad')
-                  })
-                }
-              })
-            }
-          })
-          _this.$router.replace('imlist')
-        } else {
-          _this.$router.replace({ name: 'Answer', query: { openId: res.body.result.openId } })
-        }
-      })
-    }
+    this.openId = this.$route.query.openId
   },
   methods: {
     prevAnswer() {
@@ -137,17 +96,26 @@ export default {
     },
     nextAnswer() {
       if (this.defaultIndex < 3) {
-        this.defaultIndex++
+        if (this.defaultIndex == 0 && this.value1) {
+          this.defaultIndex++
+        } else if (this.defaultIndex == 1 && (this.value2 && this.value2.length > 0)) {
+          this.defaultIndex++
+        } else if (this.defaultIndex == 2 && this.value3) {
+          this.defaultIndex++
+        }
+
       }
 
     },
     done() {
-      this.answerList.push(this.value1)
-      this.answerList.push(this.value2.join(','))
-      this.answerList.push(this.value3)
-      this.answerList.push(this.value4)
-      window.localStorage.setItem('answerList', this.answerList.join('|'))
-      this.$router.push({ name: 'Register', query: { openId: this.openId } })
+      if (this.value4) {
+        this.answerList.push(this.value1)
+        this.answerList.push(this.value2.join(','))
+        this.answerList.push(this.value3)
+        this.answerList.push(this.value4)
+        window.localStorage.setItem('answerList', this.answerList.join('|'))
+        this.$router.push({ name: 'Register', query: { openId: this.openId } })
+      }
     }
   }
 }

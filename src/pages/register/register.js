@@ -42,6 +42,7 @@ export default {
       type: ''
     }
   },
+
   mounted() {
 
     if(!localStorage.getItem('answerList') || !this.$route.query.openId) {
@@ -50,10 +51,8 @@ export default {
     if (this.$route.params.imgurl) {
       this.userInfo.headImg = this.$route.params.imgurl
     }
-    console.log()
     this.userInfo.openId = this.$route.query.openId
     this.userInfo.answerList = localStorage.getItem('answerList').split('|')
-
   },
   methods: {
     
