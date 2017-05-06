@@ -14,9 +14,10 @@ export default {
       msgType: true,
       isPreview: false,
       previewImage: '',
-      startVoice: false,
-      stopVoice: true,
-      voiceId: ''
+      isStartVoice: false,
+      voiceId: '',
+      isPlaying: false,
+      isPlayId: ''
     }
   },
   created() {
@@ -75,7 +76,6 @@ export default {
           signature: res.body.result.signature,// 必填，签名，见附录1
           jsApiList: ['startRecord', 'stopRecord', 'onVoiceRecordEnd', 'playVoice', 'pauseVoice', 'onVoicePlayEnd', 'uploadVoice', 'downloadVoice'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
-
         wx.ready(function () {
           wx.onVoiceRecordEnd({
             // 录音时间超过一分钟没有停止的时候会执行 complete 回调
@@ -95,24 +95,65 @@ export default {
     }
   },
   methods: {
+    playVoice(serid) {
+      let _this = this
+      if (!this.isPlaying) {
+        wx.downloadVoice({
+          serverId: serid, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+          isShowProgressTips: 1, // 默认为1，显示进度提示
+          success: function (res) {
+            _this.isPlayId = res.localId
+            wx.playVoice({
+              localId: res.localId
+            })
+          }
+        });
+      } else {
+        wx.stopVoice({
+          localId: _this.isPlayId
+        })
+      }
+    },
     startVoice() {
-      debugger
-      console.log("start")
-      if (!this.startVoice) {
-        this.startVoice = true
+      if (!this.isStartVoice) {
+        this.isStartVoice = true
         wx.startRecord()
       }
     },
     stopVoice() {
-      debugger
-      this.startVoice = false
+      this.isStartVoice = false
       let _this = this
+      console.log('stop')
       wx.stopRecord({
         success: function (res) {
           _this.voiceId = res.localId
-          wx.playVoice({
-            localId: _this.voiceId
-          })
+          wx.uploadVoice({
+            localId: _this.voiceId, // 需要上传的音频的本地ID，由stopRecord接口获得
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function (res) {
+              var serverId = res.serverId; // 返回音频的服务器端ID
+              var msg = new RongIMLib.TextMessage({ content: serverId, extra: "voice" });
+              //或者使用RongIMLib.TextMessage.obtain 方法.具体使用请参见文档
+              //var msg = RongIMLib.TextMessage.obtain("hello");
+              var conversationtype = RongIMLib.ConversationType.PRIVATE; // 私聊
+              var targetId = _this.$route.query.id; // 目标 Id
+              RongIMClient.getInstance().sendMessage(conversationtype, targetId, msg, {
+                // 发送消息成功
+                onSuccess: function (message) {
+                  //message 为发送的消息对象并且包含服务器返回的消息唯一Id和发送消息时间戳
+                  _this.contentList.push({
+                    content: serverId,
+                    headImg: _this.userInfo.headImg,
+                    type: '1',
+                    extra: 'voice'
+                  })
+                  console.log('消息发送成功')
+                }
+              }
+              );
+            }
+          });
+
         }
       });
     },
@@ -129,7 +170,8 @@ export default {
       console.log(event.target.value)
       if (event.target.value) {
         let options = {
-          image: event.target.files[0]
+          image: event.target.files[0],
+          bucket: 'doctor'
         }
         let toast = Toast({
           message: '图片发送中'
