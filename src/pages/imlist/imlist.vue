@@ -2,8 +2,10 @@
     <div class="imlistPage">
         <div class="item-list">
             <div class="item" @click="goChat(chat)" v-for="chat in chatList" v-if="chatList.length > 0">
-                <i class="newMsg" v-if="chat.isNewMessage"></i>
-                <img :src="chat.userInfo.headImg" alt="">
+                <div class="avatar">
+                  <i class="newMsg" v-if="chat.isNewMessage"></i>
+                  <img :src="chat.userInfo.headImg" alt="">
+                </div>
                 <div class="username">{{chat.userInfo.name}}</div>
                 <div class="timer">{{chat.sendTime}}</div>
                 <div class="content">{{chat.content}}</div>

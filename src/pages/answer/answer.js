@@ -89,6 +89,7 @@ export default {
   },
   mounted() {
     this.openId = this.$route.query.openId
+    this.wechatHead = this.$route.query.wechatHead
   },
   methods: {
     prevAnswer() {
@@ -103,9 +104,7 @@ export default {
         } else if (this.defaultIndex == 2 && this.value3) {
           this.defaultIndex++
         }
-
       }
-
     },
     done() {
       if (this.value4) {
@@ -114,7 +113,7 @@ export default {
         this.answerList.push(this.value3)
         this.answerList.push(this.value4)
         window.localStorage.setItem('answerList', this.answerList.join('|'))
-        this.$router.push({ name: 'Register', query: { openId: this.openId } })
+        this.$router.push({ name: 'Register', query: { openId: this.openId, wechatHead: this.wechatHead } })
       }
     }
   }

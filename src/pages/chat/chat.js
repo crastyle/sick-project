@@ -131,6 +131,7 @@ export default {
             localId: _this.voiceId, // 需要上传的音频的本地ID，由stopRecord接口获得
             isShowProgressTips: 1, // 默认为1，显示进度提示
             success: function (res) {
+              console.log(res)
               var serverId = res.serverId; // 返回音频的服务器端ID
               var msg = new RongIMLib.TextMessage({ content: serverId, extra: "voice" });
               //或者使用RongIMLib.TextMessage.obtain 方法.具体使用请参见文档

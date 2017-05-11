@@ -50,6 +50,8 @@ export default {
     }
     if (this.$route.params.imgurl) {
       this.userInfo.headImg = this.$route.params.imgurl
+    } else {
+      this.userInfo.headImg = this.$route.query.wechatHead
     }
     this.userInfo.openId = this.$route.query.openId
     this.userInfo.answerList = localStorage.getItem('answerList').split('|')

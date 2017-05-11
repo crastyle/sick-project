@@ -126,7 +126,7 @@ export default {
           })
           _this.$router.replace('imlist')
         } else {
-          _this.$router.replace({ name: 'Answer', query: { openId: res.body.result.openId } })
+          _this.$router.replace({ name: 'Answer', query: { openId: res.body.result.openId,wechatHead: res.body.result.wechatHeadImg } })
         }
       })
     }

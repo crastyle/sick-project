@@ -26,14 +26,26 @@ export default {
       _this.getChatList()
     }
     bus.$on('receiveMsg', function (message) {
-      if (_this.unReceiveList.indexOf(message.targetId) < 0) {
-        _this.unReceiveList.push(message.targetId)
+      if (!localStorage.getItem('unlist')) {
+        localStorage.setItem('unlist', message.targetId)
+      } else {
+        let unlist = localStorage.getItem('unlist').split(',')
+        if (unlist.indexOf(message.targetId) < 0) {
+          unlist.push(message.targetId)
+          localStorage.setItem('unlist', unlist)
+        }
+        _this.getChatList()
       }
-      _this.getChatList(_this.unReceiveList)
     })
+    
   },
   methods: {
     goChat: function (item) {
+      if (localStorage.getItem('unlist')) {
+        let unlist = localStorage.getItem('unlist').split(',')
+        unlist.splice(item.userInfo.patientUserGid, 1)
+        localStorage.setItem('unlist', unlist)
+      }
       this.$router.push({ name: 'chat', query: { id: item.userInfo.patientUserGid } })
     },
     getChatList(unlist) {
@@ -41,7 +53,6 @@ export default {
       let _this = this
       RongIMClient.getInstance().getConversationList({
         onSuccess: function (list) {
-          console.log(list)
           _this.toast.close()
           let myId = localStorage.getItem('userid')
           if (list && list.length > 0) {
@@ -65,16 +76,23 @@ export default {
                     }
                   }
                 }
-                if (unlist && unlist.length > 0) {
-                  for (let i = 0; i < temp.length; i++) {
-                    for (let j = 0; j < unlist.length; j++) {
-                      if (temp[i]['userInfo']['targetId'] == unlist[j]) {
-                        temp[i]['isNewMessage'] = true
+                if (localStorage.getItem('unlist')) {
+                  let unlist = localStorage.getItem('unlist').split(',')
+                  if (unlist && unlist.length > 0) {
+                    console.log('newMessage', unlist)
+                    for (let i = 0; i < temp.length; i++) {
+                      for (let j = 0; j < unlist.length; j++) {
+                        if (temp[i]['userInfo']['patientUserGid'] == unlist[j]) {
+                          console.log('I am in')
+                          temp[i]['isNewMessage'] = true
+                        }
                       }
                     }
                   }
                 }
+
                 _this.chatList = temp
+                console.log(_this.chatList, 'chatList')
               }
             })
           }
