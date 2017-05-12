@@ -2,11 +2,13 @@
 $maincolor: #028BE6;
 .mint-field .mint-cell-title {
     text-align: left;
-    width: 80px;
-    padding-left: .36rem;
+    width: 120px;
+    padding-left: .2rem;
 
 }
-
+a.mint-cell {
+    border-top: 1px solid #e2e2e2;
+}
 .mint-field-other {
     height: 100%;
 }
@@ -277,4 +279,52 @@ $maincolor: #028BE6;
   border-color: #fff;
   -webkit-transform: rotate(45deg) scale(1);
   transform: rotate(45deg) scale(1);
+}
+.mint-msgbox {
+    z-index: 10;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 250px;
+    max-height: 90%;
+    opacity: 1;
+    contain: content;
+    overflow: hidden;
+    max-width: 270px;
+    border-radius: 13px;
+    background-color: #f8f8f8;
+    box-shadow: none;
+}
+.mint-msgbox-message {
+    font-size: 17px;
+    color: #000;
+}
+.mint-msgbox-input input {
+    appearance: none;
+    margin-top: 10px;
+    padding: 6px;
+    border: 0.55px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+.mint-msgbox-btn {
+    overflow: hidden;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin: 0;
+    min-width: 50%;
+    height: 44px;
+    border-right: 0.55px solid #dbdbdf;
+    border-radius: 0;
+    font-size: 17px;
+    color: #488aff;
+    background-color: transparent;
+    &:last-child {
+        border-right: 0;
+        font-weight: bold;
+    }
 }

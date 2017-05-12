@@ -92,7 +92,7 @@ export default {
     let code = base.getUrlparams('code')
     let openId = this.$route.query.openId
     let _this = this
-    if (!code) {
+    if (!code && base.isWechat()) {
       resource.jsApiConfig().then(res => {
         let redirect_uri = encodeURIComponent(location.href)
         let codeUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${res.body.result.appId}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect `

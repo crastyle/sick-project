@@ -6,7 +6,7 @@
         <i class="footer_chat_icon"></i>
         <p>对话</p>
       </router-link>
-      <router-link to="/sicklist" exact>
+      <router-link to="/groups" exact>
         <i class="footer_sick_icon"></i>
         <p>患者</p>
       </router-link>

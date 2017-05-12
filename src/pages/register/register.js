@@ -1,9 +1,11 @@
 import Vue from 'vue'
-import { Actionsheet, Field, Button,Toast } from 'mint-ui'
+import { Actionsheet, Field, Button, Toast } from 'mint-ui'
 import Panel from '../../components/Panel'
 import resource from '../../resource'
 import base from '../../base'
 import { bus } from '../../bus'
+import province from '../../province'
+import city from '../../city'
 Vue.component(Actionsheet.name, Actionsheet)
 Vue.component(Field.name, Field)
 Vue.component(Button.name, Button)
@@ -24,6 +26,43 @@ export default {
 
         }
       }],
+      cardTypeList: [{
+        name: '身份证',
+        method: () => {
+
+        }
+      }, {
+        name: '军官证',
+        method: () => {
+
+        }
+      }, {
+        name: '台胞证',
+        method: () => {
+
+        }
+      }],
+      titles: [{
+        name: '主任医生',
+        method: () => {
+
+        }
+      }, {
+        name: '副主任医生',
+        method: () => {
+
+        }
+      }, {
+        name: '主治医生',
+        method: () => {
+
+        }
+      }, {
+        name: '住院医生',
+        method: () => {
+
+        }
+      }],
       validButtonText: '获取验证码',
       buttonStatus: false,
       userInfo: {
@@ -35,17 +74,25 @@ export default {
         hospital: '',
         department: '',
         answerList: '',
-
+        cardType: '',
+        province: '',
+        city: '',
+        title: ''
       },
       visible: false,
       data: [1, 2, 3],
-      type: ''
+      type: '',
+      isFirstLogin: false,
+      province: province,
+      cardTypeVisiable: false,
+      titlesVisiable: false,
+      userProfesser: false
     }
   },
 
   mounted() {
 
-    if(!localStorage.getItem('answerList') || !this.$route.query.openId) {
+    if ((!localStorage.getItem('answerList') || !this.$route.query.openId) && base.isWechat()) {
       this.$router.replace('patientCare')
     }
     if (this.$route.params.imgurl) {
@@ -57,7 +104,30 @@ export default {
     this.userInfo.answerList = localStorage.getItem('answerList').split('|')
   },
   methods: {
-    
+    showTitles() {
+      this.titlesVisiable = true
+    },
+    showProvince() {
+      this.visible = true
+      this.data = this.province
+      this.type = 'province'
+    },
+    showCity() {
+      if (!this.userInfo.province) {
+        Toast({
+          message: '请先选择省份',
+          duration: 2000
+        })
+        return false
+      }
+      let cityList = city[province.indexOf(this.userInfo.province)]
+      this.data = cityList
+      this.type = 'city'
+      this.visible = true
+    },
+    showCardType() {
+      this.cardTypeVisiable = true
+    },
     showDepartment() {
       let _this = this
       this.type = 'department'
@@ -113,7 +183,7 @@ export default {
       })
     },
     upHeadImg() {
-      this.$router.push({ name: 'Cropper', query: { redirect: 'Register',openId: this.$route.query.openId } })
+      this.$router.push({ name: 'Cropper', query: { redirect: 'Register', openId: this.$route.query.openId } })
     },
     register() {
       let name = this.userInfo.name
@@ -156,7 +226,7 @@ export default {
         })
         return false
       }
-      
+
       resource.register(this.userInfo).then(res => {
         if (res.body.code == 0) {
           Toast({
@@ -175,9 +245,9 @@ export default {
                 if (res.body.code == 0) {
                   base.watchIM()
                   base.receiveMsg()
-                  base.connectIM(res.body.result.token, function(){
+                  base.connectIM(res.body.result.token, function () {
                     window.onLoadingIMStatus = true
-                      bus.$emit('imLoad')
+                    bus.$emit('imLoad')
                   })
                 }
               })

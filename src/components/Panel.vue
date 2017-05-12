@@ -11,7 +11,8 @@
                 </div>
             </div>
             <ul class="list">
-                <li v-for="item in searchResultData" @click="choseItem">{{item.name}}</li>
+                <li v-for="item in searchResultData" @click="choseItem" v-if="type !== 'province' && type !== 'city'">{{item.name}}</li>
+                <li v-for="item in searchResultData" @click="choseItem" v-if="type === 'province' || type=== 'city'">{{item}}</li>
             </ul>
         </div>
     </div>
@@ -76,6 +77,12 @@ export default {
                     _this.$parent.visible = false
                 })
             }
+            if (this.$parent.type === 'province') {
+                this.$parent.userInfo.province = e.target.innerText
+            }
+            if (this.$parent.type === 'city') {
+                this.$parent.userInfo.city = e.target.innerText
+            }
 
             this.$parent.visible = false
         },
@@ -83,14 +90,20 @@ export default {
             let val = e.target.value
             let _this = this
             if (this.$parent.type == 'hospital' || this.$parent.type === 'UpdateHospital') {
-                resource.hospital({namePrefix: val}).then(res => {
+                resource.hospital({ namePrefix: val }).then(res => {
                     if (res.body.code == 0) {
                         _this.searchResultData = res.body.result
                     }
                 })
-            } else {
+            }
+            if (this.$parent.type === 'department' || this.$parent.type === 'updateDepartment') {
                 this.searchResultData = this.$parent.data.filter((item) => {
                     return (item['name'].toLowerCase().indexOf(val.toLowerCase()) > -1)
+                })
+            }
+            if (this.$parent.type === 'province' || this.$parent.type === 'city') {
+                this.searchResultData = this.$parent.data.filter((item) => {
+                    return (item.toLowerCase().indexOf(val.toLowerCase()) > -1)
                 })
             }
         }
