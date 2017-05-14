@@ -1,9 +1,7 @@
 <template>
     <div class="sicklistPage">
         <mt-header :title="name">
-            <mt-button slot="left" v-if="isActiveGroup" @click="cancelActiveGroup">取消</mt-button>
-            <mt-button slot="right" @click="showGroup" v-if="!isActiveGroup">群发</mt-button>
-            <mt-button slot="right" v-if="isActiveGroup" @click="sendAll">发给所有人</mt-button>
+            <mt-button slot="right" @click="sendAll">群发</mt-button>
         </mt-header>
         <div class="group-info">
             <mt-field label="组名" v-model="name"></mt-field>
@@ -34,11 +32,8 @@
                 <div class="list-header">{{item.item}}</div>
                 <div class="item-list" v-for="(user, index) in item.list" @click="patientCalendar(user, $event)" :key="index">
                     <div class="item">
-                        <div class="group" v-bind:class="{'show': isActiveGroup}">
-                            <span class="mint-checkbox-core " v-bind:class="{'checked': user.isActive}"></span>
-                        </div>
-                        <img :src="user.headImg" alt="">
-                        <span class="username">{{user.name}}</span>
+                        <mt-cell-swipe :icon="user.headImg" :title="user.name" :right="[{content: 'Delete', style: { background: 'red', color: '#fff' },handler: () => this.$messagebox('delete')}]"></mt-cell-swipe>
+        
                     </div>
                 </div>
             </div>
