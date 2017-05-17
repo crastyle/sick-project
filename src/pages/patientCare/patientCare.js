@@ -124,7 +124,7 @@ export default {
               })
             }
           })
-          _this.$router.replace('imlist')
+          _this.$router.replace('examine')
         } else {
           _this.$router.replace({ name: 'Answer', query: { openId: res.body.result.openId,wechatHead: res.body.result.wechatHeadImg } })
         }

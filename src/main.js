@@ -29,7 +29,14 @@ new Vue({
     window.onLoadingIMStatus = false
     let route = this.$route.name
     console.log(route)
-    if (route !== 'PatientCare' && route !== 'Register' && route !== 'Hello') {
+    if (route !== 'PatientCare' && route !== 'Register' && route !== 'Hello' && route !== 'RegisterExtra' && route !== 'RegisterExtra2') {
+      resource.checkStatus().then(res => {
+        if (res.body.code == 0) {
+          if (res.body.result.auditStatus == 0 || res.body.result.auditStatus == 2) {
+            _this.$router.replace('examine')
+          }
+        }
+      })
       // 如果是在注册页面，让他授权登录
       resource.userInfo().then(res => {
         if (res.body.code == 0) {

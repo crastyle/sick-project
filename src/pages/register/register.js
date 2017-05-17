@@ -1,153 +1,29 @@
 import Vue from 'vue'
-import { Actionsheet, Field, Button, Toast } from 'mint-ui'
-import Panel from '../../components/Panel'
+import { Field, Button, Toast } from 'mint-ui'
 import resource from '../../resource'
 import base from '../../base'
-import { bus } from '../../bus'
-import province from '../../province'
-import city from '../../city'
-Vue.component(Actionsheet.name, Actionsheet)
 Vue.component(Field.name, Field)
 Vue.component(Button.name, Button)
 export default {
   name: 'Login',
   data() {
     return {
-      msg: 'Welcome to Login',
-      sheetVisible: true,
-      actions: [{
-        name: '男',
-        method: () => {
-
-        }
-      }, {
-        name: '女',
-        method: () => {
-
-        }
-      }],
-      cardTypeList: [{
-        name: '身份证',
-        method: () => {
-
-        }
-      }, {
-        name: '军官证',
-        method: () => {
-
-        }
-      }, {
-        name: '台胞证',
-        method: () => {
-
-        }
-      }],
-      titles: [{
-        name: '主任医生',
-        method: () => {
-
-        }
-      }, {
-        name: '副主任医生',
-        method: () => {
-
-        }
-      }, {
-        name: '主治医生',
-        method: () => {
-
-        }
-      }, {
-        name: '住院医生',
-        method: () => {
-
-        }
-      }],
       validButtonText: '获取验证码',
       buttonStatus: false,
       userInfo: {
-        name: '',
         mobile: '',
         smsCode: '',
-        headImg: '',
-        openId: '',
-        hospital: '',
-        department: '',
-        answerList: '',
-        cardType: '',
-        province: '',
-        city: '',
-        title: ''
-      },
-      visible: false,
-      data: [1, 2, 3],
-      type: '',
-      isFirstLogin: false,
-      province: province,
-      cardTypeVisiable: false,
-      titlesVisiable: false,
-      userProfesser: false
+        openId: ''
+      }
     }
   },
-
   mounted() {
-
     if ((!localStorage.getItem('answerList') || !this.$route.query.openId) && base.isWechat()) {
-      this.$router.replace('patientCare')
-    }
-    if (this.$route.params.imgurl) {
-      this.userInfo.headImg = this.$route.params.imgurl
-    } else {
-      this.userInfo.headImg = this.$route.query.wechatHead
+      this.$router.replace('answer')
     }
     this.userInfo.openId = this.$route.query.openId
-    this.userInfo.answerList = localStorage.getItem('answerList').split('|')
   },
   methods: {
-    showTitles() {
-      this.titlesVisiable = true
-    },
-    showProvince() {
-      this.visible = true
-      this.data = this.province
-      this.type = 'province'
-    },
-    showCity() {
-      if (!this.userInfo.province) {
-        Toast({
-          message: '请先选择省份',
-          duration: 2000
-        })
-        return false
-      }
-      let cityList = city[province.indexOf(this.userInfo.province)]
-      this.data = cityList
-      this.type = 'city'
-      this.visible = true
-    },
-    showCardType() {
-      this.cardTypeVisiable = true
-    },
-    showDepartment() {
-      let _this = this
-      this.type = 'department'
-      resource.department().then(res => {
-        if (res.body.code == 0) {
-          _this.data = res.body.result
-          this.visible = true
-        }
-      })
-    },
-    showHospital() {
-      let _this = this
-      this.type = 'hospital'
-      resource.hospital({ namePrefix: '' }).then(res => {
-        if (res.body.code == 0) {
-          _this.data = res.body.result
-          this.visible = true
-        }
-      })
-    },
     getCode: function () {
       let second = 60
       let _this = this
@@ -182,36 +58,10 @@ export default {
         }, 1000)
       })
     },
-    upHeadImg() {
-      this.$router.push({ name: 'Cropper', query: { redirect: 'Register', openId: this.$route.query.openId } })
-    },
-    register() {
-      let name = this.userInfo.name
+    login() {
       let mobile = this.userInfo.mobile
       let code = this.userInfo.smsCode
       let _this = this
-      if (!name) {
-        Toast({
-          message: '请输入正确的姓名',
-          duration: 2000
-        })
-        return false
-      }
-      if (!this.userInfo.hospital) {
-        Toast({
-          message: '请选择医院',
-          duration: 2000
-        })
-        return false
-      }
-      if (!this.userInfo.department) {
-        Toast({
-          message: '请选择科室',
-          duration: 2000
-        })
-        return false
-      }
-
       if (!base.validate.isTelephone(mobile)) {
         Toast({
           message: '请输入正确的手机号码',
@@ -226,41 +76,12 @@ export default {
         })
         return false
       }
-
-      resource.register(this.userInfo).then(res => {
+      resource.checkMobile(this.userInfo).then(res => {
         if (res.body.code == 0) {
-          Toast({
-            message: '注册成功',
-            duration: 2000,
-            position: 'middle'
-          })
-          let token = res.body.result.t
-          let userid = res.body.result.u
-          window.localStorage.setItem('userid', userid)
-          window.localStorage.setItem('token', token)
-          resource.rongyunAppKey().then(res => {
-            if (res.body.code == 0) {
-              base.initIm(res.body.result.appKey)
-              resource.newtoken({ userGid: userid }).then(res => {
-                if (res.body.code == 0) {
-                  base.watchIM()
-                  base.receiveMsg()
-                  base.connectIM(res.body.result.token, function () {
-                    window.onLoadingIMStatus = true
-                    bus.$emit('imLoad')
-                  })
-                }
-              })
-            }
-          })
-          setTimeout(() => {
-            _this.$router.replace('imlist')
-          }, 2000)
+          window.localStorage.setItem('tempUserInfo', JSON.stringify(_this.userInfo))
+          _this.$router.push('registerExtra')
         }
       })
     }
-  },
-  components: {
-    Panel
   }
 }

@@ -11,8 +11,8 @@
                 </div>
             </div>
             <ul class="list">
-                <li v-for="item in searchResultData" @click="choseItem" v-if="type !== 'province' && type !== 'city'">{{item.name}}</li>
-                <li v-for="item in searchResultData" @click="choseItem" v-if="type === 'province' || type=== 'city'">{{item}}</li>
+                <li v-for="item in searchResultData" @click="choseItem" v-if="type !== 'province' && type !== 'city' && type !=='updateProvince' && type!=='updateCity'">{{item.name}}</li>
+                <li v-for="item in searchResultData" @click="choseItem" v-if="type === 'province' || type=== 'city' || type==='updateProvince' || type=='updateCity'">{{item}}</li>
             </ul>
         </div>
     </div>
@@ -78,12 +78,32 @@ export default {
                 })
             }
             if (this.$parent.type === 'province') {
-                this.$parent.userInfo.province = e.target.innerText
+                this.$parent.userInfo.hospitalProvince = e.target.innerText
+                this.$parent.userInfo.hospitalCity = ''
             }
             if (this.$parent.type === 'city') {
-                this.$parent.userInfo.city = e.target.innerText
+                this.$parent.userInfo.hospitalCity = e.target.innerText
             }
-
+            if (this.$parent.type === 'updateProvince') {
+                resource.updateUserInfo({
+                    hospitalProvince: e.target.innerText
+                }).then(res => {
+                    if (res.body.code == 0) {
+                        _this.$parent.userInfo.hospitalProvince = e.target.innerText
+                        _this.$parent.visible = false
+                    }
+                })
+            }
+            if (this.$parent.type === 'updateCity') {
+                resource.updateUserInfo({
+                    hospitalCity: e.target.innerText
+                }).then(res => {
+                    if (res.body.code == 0) {
+                        _this.$parent.userInfo.hospitalCity = e.target.innerText
+                        _this.$parent.visible = false
+                    }
+                })
+            }
             this.$parent.visible = false
         },
         search(e) {

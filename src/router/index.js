@@ -15,6 +15,8 @@ import Answer from '../pages/answer/answer.vue'
 import Groups from '../pages/groups/groups.vue'
 import Member from '../pages/member/member.vue'
 import Examine from '../pages/examine/examine.vue'
+import RegisterExtra from '../pages/registerExtra/registerExtra.vue'
+import RegisterExtra2 from '../pages/registerExtra2/registerExtra2.vue'
 //@import
 Vue.use(Router)
 
@@ -34,7 +36,9 @@ export default new Router({
         { path: '/answer', name: 'Answer', component: Answer },
         { path: '/groups', name: 'Groups', component: Groups, meta: { menuShow: true } },
     {path: '/member',name: 'Member',component: Member},
-    {path: '/examine',name: 'Examine',component: Examine}//@register
+    {path: '/examine',name: 'Examine',component: Examine},
+    {path: '/registerExtra',name: 'RegisterExtra',component: RegisterExtra},
+    {path: '/registerExtra2',name: 'RegisterExtra2',component: RegisterExtra2}//@register
 
     ]
 })

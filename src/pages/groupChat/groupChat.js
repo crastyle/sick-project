@@ -10,12 +10,16 @@ export default {
       msgType: true,
       chatUserList: [],
       headImg: '',
-      type: 1
+      type: 1,
+      gid: '',
+      groupName: ''
     }
   },
   mounted() {
     this.ids = this.$route.params.ids
     this.type = this.$route.query.type
+    this.gid = this.$route.query.id
+    this.groupName = this.$route.query.groupName
     let _this = this
     if (this.type == 0) {
       if (!this.ids) {
@@ -53,7 +57,7 @@ export default {
         })
       }
       if (this.type == 1) {
-        resource.sendToAllPatient({ content: this.chatContent }).then(res => {
+        resource.sendToAllPatient({ content: this.chatContent, groupGid: this.gid }).then(res => {
           if (res.body.code == 0) {
             _this.contentList.push({
               type: 1,

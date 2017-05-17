@@ -38,6 +38,62 @@
                 </div>
                 <div class="username">{{userInfo.identifyCode}}</div>
             </div>
+            <!--
+            <div class="item" @click="updateProvince">
+                <div class="bd-l">
+                    所在区域（省）
+                </div>
+                <div class="username">{{userInfo.hospitalProvince}}</div>
+            </div>
+            <div class="item" @click="updateCity">
+                <div class="bd-l">
+                    所在区域（市）
+                </div>
+                <div class="username">{{userInfo.hospitalCity}}</div>
+            </div>
+            <div class="item" @click="updateHospital">
+                <div class="bd-l">
+                    医院
+                </div>
+                <div class="username hospital">{{userInfo.hospital}}</div>
+            </div>
+            <div class="item" @click="updateDepartment">
+                <div class="bd-l">
+                    科室
+                </div>
+                <div class="username">{{userInfo.department}}</div>
+            </div>
+            <div class="item" @click="updateTitle">
+                <div class="bd-l">
+                    职称
+                </div>
+                <div class="username">{{userInfo.title}}</div>
+            </div>
+            <div class="item" @click="updateTitleImg">
+                <div class="bd-l">
+                    专业职称
+                </div>
+                <img :src="userInfo.titleImg" alt="">
+            </div>
+            <div class="item" @click="updateProfessionImg">
+                <div class="bd-l">
+                    专业职称
+                </div>
+                <img :src="userInfo.professionImg" alt="">
+            </div>
+            <div class="item" @click="updateExtraPluses" v-if="userInfo.extraPluses">
+                <div class="bd-l">
+                    专业职称
+                </div>
+                <img :src="userInfo.extraPluses" alt="">
+            </div>
+            <div class="item">
+                <div class="bd-l">
+                    识别码
+                </div>
+                <div class="username">{{userInfo.identifyCode}}</div>
+            </div>
+            -->
         </div>
         <div class="my-section">
             <div class="tip">我的二维码</div>
@@ -80,23 +136,6 @@
       </div>
   
     </div>
-        
-
-
-      <footer>
-        <router-link to="/imlist" exact>
-          <i class="footer_icon"></i>
-          <p>对话</p>
-        </router-link>
-        <router-link to="/sicklist" exact>
-          <i class="footer_icon"></i>
-          <p>患者</p>
-        </router-link>
-        <router-link to="/userinfo" exact>
-          <i class="footer_icon"></i>
-          <p>我的</p>
-        </router-link>
-      </footer>
     </div>
 </template>
 

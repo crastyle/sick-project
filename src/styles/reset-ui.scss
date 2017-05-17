@@ -6,8 +6,28 @@ $maincolor: #028BE6;
     padding-left: .2rem;
 
 }
-a.mint-cell {
-    border-top: 1px solid #e2e2e2;
+.userlist {
+    .mint-cell-wrapper {
+        background: transparent;
+    }
+    .mint-cell-swipe-button {
+        display: block;
+        font-size: 14px;
+        text-align: center;
+        width: 80px;
+        float: right;
+    }
+    .mint-cell-value {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .mint-cell-title {
+        margin-left: 50px;
+    }
+}
+.mint-cell:last-child {
+    background: #fff;
 }
 .mint-field-other {
     height: 100%;

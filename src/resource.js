@@ -8,17 +8,20 @@ export default {
             req.method = "POST"
             let u = window.localStorage.getItem('userid')
             let t = window.localStorage.getItem('token')
-            if (!u || u !== "undefined") {
-                if (!req.body) {
-                    req.body = {}
+            if (req.url.indexOf('uploadImageWithCropByBase64') > 0) {
+                console.log('xxx')
+            } else {
+                if (!u || u !== "undefined") {
+                    if (!req.body) {
+                        req.body = {}
+                    }
+                    req.body['u'] = u
+                    req.body['t'] = t
+                    req.body['c'] = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 ? 'wechat' : 'wechat'
                 }
-                req.body['u'] = u
-                req.body['t'] = t
-                req.body['c'] = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 ? 'wechat' : 'wechat'
             }
-            // req.body['u'] = '7e78d0d0d17146cc86309555de96f473'
-            // req.body['t'] = 'onwlo0rBYjqJ5ayGS7o9Fn0N9N_g'
-            // req.body['c'] = 'wechat'
+
+
             let toast = Toast({
                 message: '请求中...'
             })
@@ -77,13 +80,18 @@ export default {
     checkBind(params) {
         return this.resource('doctor/user/checkBind', params)
     },
+    checkMobile(params) {
+        return this.resource('doctor/user/checkMobile', params)
+    },
     hospital(params) {
         return this.resource('doctor/config/hospital', params)
     },
     department(params) {
         return this.resource('doctor/config/department', params)
     },
-
+    checkStatus(params) {
+        return this.resource('doctor/user/checkStatus', params)
+    },
     /**
      * @description 用户注册接口
      * @return u,t
@@ -91,6 +99,9 @@ export default {
     register(params) {
 
         return this.resource('doctor/user/register', params)
+    },
+    apply(params) {
+        return this.resource('doctor/user/applyAgain', params)
     },
 
     /**
@@ -112,7 +123,15 @@ export default {
     smsCode(params) {
         return this.resource('utility/smsCode', params)
     },
-
+    addPatientToGroup(params) {
+        return this.resource('doctor/group/addPatientToGroup', params)
+    },
+    removePatientFromGroup(params) {
+        return this.resource('doctor/group/removeFromGroup', params)
+    },
+    todoPatientList(params) {
+        return this.resource('doctor/group/todoAddPatientList', params)
+    },
     bindPatientList(params) {
         return this.resource('doctor/myPatient/bindPatientList', params)
     },
@@ -136,7 +155,22 @@ export default {
         }
         return this.resource('utility/uploadImageWithCrop', formData)
     },
-
+    uploadImageWithBase64Crop(params, base64) {
+        let postStr = ''
+        if (params.width != undefined) {
+            postStr += `width=${params.width}&`
+        }
+        if (params.height != undefined) {
+            postStr += `height=${params.height}&`
+        }
+        if (params.x != undefined) {
+            postStr += `x=${parmas.x}&`
+        }
+        if (params.y != undefined) {
+            postStr += `y=${params.y}&`
+        }
+        return this.resource(`utility/uploadImageWithCropByBase64?bucket=doctor&${postStr}`, base64)
+    },
     userInfo(params) {
         return this.resource('doctor/user/userInfo', params)
     },
@@ -150,6 +184,16 @@ export default {
         params.app = 'doctor'
         return this.resource('rongyun/gateway/doctor/newToken', params)
     },
+    getGroupList(params) {
+        return this.resource('doctor/group/groupList', params)
+    },
+    addGroup(params) {
+        return this.resource('doctor/group/addGroup', params)
+    },
+    getGroupDetail(params) {
+        return this.resource('doctor/group/groupPatientList', params)
+    },
+
     getPatientListByIds(params) {
         return this.resource('doctor/myPatient/patientList', params)
     },
@@ -158,5 +202,8 @@ export default {
     },
     sendToAllPatient(params) {
         return this.resource('doctor/myPatient/sendToAllPatient', params)
+    },
+    sendToGroupPatient(params) {
+        return this.resource('doctor/myPatient/sendToGroupPatient', params)
     }
 }

@@ -1,5 +1,11 @@
 @import '../../styles/app.scss';
 .userinfoPage {
+    position: absolute;
+    left: 0;
+    bottom: 1.1rem;
+    right: 0;
+    top: 0;
+    overflow: auto;
     .item-list {
         padding-left: .3rem;
         background: #fff;
@@ -12,9 +18,9 @@
             box-sizing: initial;
             .bd-l {
                 float: left;
-                font-size: 20px;
+                font-size: 16px;
                 color: #787878;
-                width: 2rem;
+                width: 2.5rem;
             }
             img {
                 width: .86rem;
@@ -24,7 +30,7 @@
                 border-radius: 50%;
             }
             .username {
-                font-size: 20px;
+                font-size: 16px;
                 color: #333;
                 display: block;
                 position: relative;

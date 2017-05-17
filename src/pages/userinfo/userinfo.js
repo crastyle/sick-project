@@ -2,6 +2,8 @@ import resource from '../../resource'
 import base from '../../base'
 import { MessageBox,Toast } from 'mint-ui'
 import Panel from '../../components/Panel'
+import province from '../../province'
+import city from '../../city'
 export default {
   name: 'Userinfo',
   data() {
@@ -23,6 +25,7 @@ export default {
       buttonStatus: false,
       mobile: '',
       validButtonText: '获取验证码',
+      province: province
     }
   },
   mounted: function () {
@@ -35,6 +38,25 @@ export default {
     })
   },
   methods: {
+    updateProvince() {
+      this.visible = true
+      this.data = []
+      this.data = this.province
+      this.type = 'updateProvince'
+    },
+    updateCity() {
+      if (!this.userInfo.hospitalProvince) {
+        Toast({
+          message: '请先选择省份',
+          duration: 2000
+        })
+        return false
+      }
+      let cityList = city[this.userInfo.hospitalProvince]
+      this.data = cityList
+      this.type = 'updateCity'
+      this.visible = true
+    },
     updateMobile() {
       this.showMobile = true
     },

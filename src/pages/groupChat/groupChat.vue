@@ -1,14 +1,16 @@
 <template>
     <div class="groupChatPage">
-        
+    
         <div class="tips">
             您将发送消息给：
             <div class="list" v-if="type == 0">
                 <span v-for="user in chatUserList">
-                    {{user.name}}，
-                </span>
+                        {{user.name}}，
+                    </span>
             </div>
-            <div class="list" v-if="type == 1">所有患者</div>
+            <div class="list" v-if="type == 1">
+                {{groupName}}小组成员
+            </div>
         </div>
         <div class="chat_body clearfix" id="content">
             <!-- 左边 文字 -->
@@ -23,13 +25,16 @@
         </div>
     
         <div class="chat_zone">
-            
-            <div class="chat_footer chat_footer_center" v-if="msgType">
-                <!-- 输入框状态 -->
-                <textarea name="" id="" v-model="chatContent"></textarea>
-                <!-- 语音状态-->
+            <!--
+            <div class="chat_footer">
+                <i class="chat_image"></i>
+                <input type="file" accept="image/*" @change="sendImage" id="sendImage">
             </div>
-          
+            -->
+            <div class="chat_footer chat_footer_center" v-if="msgType">
+                <textarea name="" id="" v-model="chatContent"></textarea>
+            </div>
+    
             <div class="chat_footer" @click="sendMsg" v-if="msgType">
                 发送
             </div>

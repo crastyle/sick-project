@@ -40,17 +40,14 @@ export default {
     selectUser(user) {
       if (!user.isActive) {
         user.isActive = true
-        this.selectedUsers.push(user.patientUserGid)
+        if (this.selectedUsers.indexOf(user.patientUserGid) < 0) {
+          this.selectedUsers.push(user.patientUserGid)
+        }
+        
       } else {
         user.isActive = false
         this.selectedUsers.splice(user.patientUserGid, 1)
       }
-      if (this.selectedUsers.length > 0) {
-        this.selected = true
-      } else {
-        this.selected = false
-      }
-
     },
     paginationSearch() {
       let _this = this
@@ -112,7 +109,14 @@ export default {
       })
     },
     complete() {
-      this.$router.push({ name: 'GroupChat', query: { type: 0 }, params: { ids: this.selectedUsers } })
+      resource.addPatientToGroup({
+        groupGid: this.$route.query.id,
+        patientUserGidList: this.selectedUsers
+      }).then(res => {
+        if (res.body.code == 0) {
+          this.$router.go(-1)
+        }
+      })
     },
     cancel() {
       this.$router.go(-1)
